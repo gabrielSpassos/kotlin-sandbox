@@ -21,7 +21,7 @@ class PersonService(val db: JdbcTemplate) {
     }
 
     fun savePerson(person: PersonDTO): PersonDTO? {
-        val id = person.id ?: UUID.randomUUID().toString();
+        val id = person.id ?: UUID.randomUUID().toString()
         db.update("insert into people values (?, ?)", id, person.name)
         return findPersonById(id)
     }
