@@ -21,7 +21,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.22")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 }
 
 tasks.test {
