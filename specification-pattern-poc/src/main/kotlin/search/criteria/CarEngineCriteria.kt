@@ -1,7 +1,9 @@
-package org.gabrielspassos.search
+package org.gabrielspassos.search.criteria
 
 import org.gabrielspassos.product.Car
 import org.gabrielspassos.product.Product
+import org.gabrielspassos.search.Operator
+import org.gabrielspassos.search.SearchCriteria
 
 class CarEngineCriteria(private val operator: Operator, private val target: Double): SearchCriteria {
 
