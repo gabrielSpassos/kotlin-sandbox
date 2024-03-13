@@ -1,10 +1,4 @@
-### Randori #2 - eSports Judge
-
-<img src="https://www.judo-ch.jp/english/dictionary/terms/rantori/image-mfi/img01.gif" width="200" height="200">
-<img src="https://educommunity.minecraft.net/hc/user_images/XVlw09H1ClF9-cr_hHigRg.png" width="200" height="200">
-<img src="https://preview.redd.it/ufr2vqmno5161.jpg?width=640&crop=smart&auto=webp&s=f3de636fe2944ad3cfc2968c0d10ec4919e93da1" width="200" height="200">
-<img src="https://www.genesislawfirm.com/wp-content/uploads/2020/12/judge-vector-character-cartoon-illustration_MyGD2Jdd_L.png" width="200" height="200">
-<img src="https://miro.medium.com/v2/resize:fit:816/0*iQcvmErDo0udSrK3" width="200" height="200">
+### eSports Judge
 
 The company decide to make money offering loans for people to build they super computer, either to mine bitcoins or to just play some video games.
 This will be called the eSportsLoan where we will give very good deal for our customers.
