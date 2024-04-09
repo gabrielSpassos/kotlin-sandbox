@@ -1,3 +1,3 @@
 package org.gabrielspassos.models
 
-data class State(val name: String)
+data class Tax(val value: Double)
