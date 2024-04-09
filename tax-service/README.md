@@ -22,8 +22,11 @@ ano -> taxa
   - https://medium.com/@carlosraphael/specification-design-pattern-in-java-8-bac6f5f943bc
   - https://dzone.com/articles/specification-pattern-quickly
 
+# Class diagram
+![tax-service-class-diagram.png](tax-service-class-diagram.png)
+
 # TODOs:
 
-- [ ] Class diagram
+- [x] Class diagram
 - [ ] Code
 - [ ] Tests
