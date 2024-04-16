@@ -11,6 +11,7 @@ class Criteria(private var criteria: List<SearchTaxCriteria>): SearchTaxCriteria
         return criteria.stream()
             .map { searchCriteria -> searchCriteria.findByCriteria(product, state, year) }
             .filter { tax -> null != tax }
+            .map { tax -> tax!! }
             .findFirst()
             .orElseThrow { throw RuntimeException("Tax not found") }!!
     }

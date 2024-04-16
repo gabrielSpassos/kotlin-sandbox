@@ -5,7 +5,7 @@ import org.gabrielspassos.specification.criteria.SearchTaxCriteria
 
 class SearchTaxCriteriaBuilder {
 
-    val criteria: List<SearchTaxCriteria> = mutableListOf()
+    val criteria: MutableList<SearchTaxCriteria> = mutableListOf()
     private var taxCriteriaBuilder: TaxCriteriaBuilder? = null
 
     fun withTax(): TaxCriteriaBuilder {

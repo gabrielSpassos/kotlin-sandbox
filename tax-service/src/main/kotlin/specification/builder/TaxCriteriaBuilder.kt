@@ -34,7 +34,7 @@ class TaxCriteriaBuilder(private val builder: SearchTaxCriteriaBuilder) {
     }
 
     fun searchTaxCriteriaBuilder(): SearchTaxCriteriaBuilder {
-        this.builder.criteria.addFirst(TaxCriteria(operator!!))
+        this.builder.criteria.add(TaxCriteria(operator!!))
         return this.builder
     }
 
