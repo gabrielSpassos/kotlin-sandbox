@@ -11,8 +11,8 @@
 
 
 # Queries
-- [x] qual o tax atual daquele produto em determinado state?
 - [x] qual o tax de 2023 de um determinado state?
+- [x] qual o tax atual daquele produto em determinado state?
 - [ ] como pegar todas as taxas do ano 2023 
 - [] como adicionar as taxas do ano 2024
 
