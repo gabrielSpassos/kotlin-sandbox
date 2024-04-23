@@ -1,15 +1,12 @@
 package org.gabrielspassos.specification.criteria
 
-import org.gabrielspassos.models.Product
-import org.gabrielspassos.models.State
 import org.gabrielspassos.models.Tax
-import java.time.Year
 
 class Criteria(private var criteria: List<SearchTaxCriteria>): SearchTaxCriteria {
 
-    override fun findByCriteria(product: Product, state: State, year: Year): Tax {
+    override fun findByCriteria(): Tax {
         return criteria.stream()
-            .map { searchCriteria -> searchCriteria.findByCriteria(product, state, year) }
+            .map { searchCriteria -> searchCriteria.findByCriteria() }
             .filter { tax -> null != tax }
             .map { tax -> tax!! }
             .findFirst()

@@ -40,7 +40,7 @@ class QueriesTest {
             .searchTaxCriteriaBuilder()
             .build()
 
-        val tax = search.findByCriteria(product2, state2, year23)
+        val tax = search.findByCriteria()
 
         // then
         assertNotNull(tax)
@@ -74,7 +74,7 @@ class QueriesTest {
             .searchTaxCriteriaBuilder()
             .build()
 
-        val tax = search.findByCriteria(product2, state2, year23)
+        val tax = search.findByCriteria()
 
         // then
         assertNotNull(tax)

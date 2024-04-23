@@ -11,9 +11,17 @@ import java.util.function.Predicate
 
 class LatestProductTaxByStateHandler(nextHandler: TaxSearchCriteriaHandler): TaxSearchCriteriaHandler(nextHandler) {
 
-    override fun handleTaxSearch(operator: Operator, product: Product, state: State, year: Year): Tax {
+    override fun handleTaxSearch(operator: Operator, product: Product?, state: State?, year: Year?): Tax {
         if (Operator.LATEST_PRODUCT_BY_STATE != operator) {
             return nextHandler!!.handleTaxSearch(operator, product, state, year)
+        }
+
+        if (product == null) {
+            throw IllegalArgumentException("Product is required")
+        }
+
+        if (state == null) {
+            throw IllegalArgumentException("State is required")
         }
 
         val taxStorage = TaxStorage.getInstance()

@@ -34,7 +34,11 @@ class TaxCriteriaBuilder(private val builder: SearchTaxCriteriaBuilder) {
     }
 
     fun searchTaxCriteriaBuilder(): SearchTaxCriteriaBuilder {
-        this.builder.criteria.add(TaxCriteria(operator!!))
+        if (operator == null) {
+            throw IllegalArgumentException("Operator is required")
+        }
+
+        this.builder.criteria.add(TaxCriteria(operator!!, product, state, year))
         return this.builder
     }
 

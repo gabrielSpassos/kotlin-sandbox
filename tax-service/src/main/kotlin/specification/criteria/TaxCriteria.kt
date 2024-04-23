@@ -6,9 +6,12 @@ import org.gabrielspassos.models.State
 import org.gabrielspassos.models.Tax
 import java.time.Year
 
-class TaxCriteria(private val operator: Operator): SearchTaxCriteria {
+class TaxCriteria(private val operator: Operator,
+                  private val product: Product?,
+                  private val state: State?,
+                  private val year: Year?): SearchTaxCriteria {
 
-    override fun findByCriteria(product: Product, state: State, year: Year): Tax {
+    override fun findByCriteria(): Tax {
         val chainFactory = ChainFactory()
         val taxSearchCriteriaChain = chainFactory.createTaxSearchCriteriaChain()
 
