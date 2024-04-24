@@ -1,7 +1,7 @@
 package org.gabrielspassos.chain
 
 import org.gabrielspassos.domain.tax.TaxPerStatesProductsYears
-import org.gabrielspassos.domain.tax.TaxStorage
+import org.gabrielspassos.domain.tax.TaxFactory
 import org.gabrielspassos.models.Product
 import org.gabrielspassos.models.State
 import org.gabrielspassos.models.Tax
@@ -24,8 +24,8 @@ class LatestProductTaxByStateHandler(nextHandler: TaxSearchCriteriaHandler): Tax
             throw IllegalArgumentException("State is required")
         }
 
-        val taxStorage = TaxStorage.getInstance()
-        return taxStorage.getTaxes().stream()
+        val taxFactory = TaxFactory.getInstance()
+        return taxFactory.getTaxes().stream()
             .filter(isSameProduct(product).and(isSameState(state)))
             .sorted(compareYears().reversed())
             .map { storedTax -> storedTax.tax }

@@ -1,6 +1,5 @@
 package main
 
-import org.gabrielspassos.domain.tax.TaxFactory
 import org.gabrielspassos.models.Product
 import org.gabrielspassos.models.State
 import org.gabrielspassos.specification.builder.SearchTaxCriteriaBuilder
@@ -17,19 +16,8 @@ class QueriesTest {
     fun shouldFetchTaxByProductAndStateAndYear() {
         // given
         val year23 = Year.of(2023)
-        val year24 = Year.of(2024)
-
-        val product1 = Product("Product 1", 10.0)
         val product2 = Product("Product 2", 14.0)
-
-        val state1 = State("State 1")
         val state2 = State("State 2")
-
-        val taxFactory = TaxFactory()
-        taxFactory.createTaxStorage(2.5, listOf(state1), listOf(product1), listOf(year23, year24))
-        taxFactory.createTaxStorage(3.5, listOf(state2), listOf(product2), listOf(year23)) // this is the one
-        taxFactory.createTaxStorage(4.5, listOf(state2), listOf(product2), listOf(year24))
-        taxFactory.createTaxStorage(5.5, listOf(state2), listOf(product1), listOf(year23))
 
         // when
         val search = SearchTaxCriteriaBuilder()
@@ -51,21 +39,8 @@ class QueriesTest {
     @Test
     fun shouldFetchLatestTaxByProductAndState() {
         // given
-        val year23 = Year.of(2023)
-        val year24 = Year.of(2024)
-
-        val product1 = Product("Product 1", 10.0)
         val product2 = Product("Product 2", 14.0)
-
-        val state1 = State("State 1")
         val state2 = State("State 2")
-
-        // todo: send this on the factory
-        val taxFactory = TaxFactory()
-        taxFactory.createTaxStorage(2.5, listOf(state1), listOf(product1), listOf(year23, year24))
-        taxFactory.createTaxStorage(3.5, listOf(state2), listOf(product2), listOf(year23))
-        taxFactory.createTaxStorage(4.5, listOf(state2), listOf(product2), listOf(year24))
-        taxFactory.createTaxStorage(5.5, listOf(state2), listOf(product1), listOf(year23))
 
         // when
         val search = SearchTaxCriteriaBuilder()
@@ -87,19 +62,6 @@ class QueriesTest {
     fun shouldFetchTaxesByYear() {
         // given
         val year23 = Year.of(2023)
-        val year24 = Year.of(2024)
-
-        val product1 = Product("Product 1", 10.0)
-        val product2 = Product("Product 2", 14.0)
-
-        val state1 = State("State 1")
-        val state2 = State("State 2")
-
-        val taxFactory = TaxFactory()
-        taxFactory.createTaxStorage(2.5, listOf(state1), listOf(product1), listOf(year23, year24))
-        taxFactory.createTaxStorage(3.5, listOf(state2), listOf(product2), listOf(year23)) // this is the one
-        taxFactory.createTaxStorage(4.5, listOf(state2), listOf(product2), listOf(year24))
-        taxFactory.createTaxStorage(5.5, listOf(state2), listOf(product1), listOf(year23))
 
         // when
         val search = SearchTaxCriteriaBuilder()

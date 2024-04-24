@@ -1,6 +1,6 @@
 package org.gabrielspassos.chain
 
-import org.gabrielspassos.domain.tax.TaxStorage
+import org.gabrielspassos.domain.tax.TaxFactory
 import org.gabrielspassos.models.Product
 import org.gabrielspassos.models.State
 import org.gabrielspassos.models.Tax
@@ -22,8 +22,8 @@ class YearTaxesHandler(nextHandler: TaxSearchCriteriaHandler): TaxSearchCriteria
             throw IllegalStateException("year is required for operation $operator")
         }
 
-        val taxStorage = TaxStorage.getInstance()
-        return taxStorage.getTaxes().stream()
+        val taxFactory = TaxFactory.getInstance()
+        return taxFactory.getTaxes().stream()
             .filter {storedTax -> storedTax.years.stream().anyMatch { storedYear -> storedYear == year } }
             .map { storedTax -> storedTax.tax }
             .toList()
