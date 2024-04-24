@@ -20,6 +20,7 @@ class TaxFactory private constructor() {
     private var taxes: MutableList<TaxPerStatesProductsYears> = mutableListOf()
 
     init {
+        val year22 = Year.of(2022)
         val year23 = Year.of(2023)
         val year24 = Year.of(2024)
 
@@ -29,6 +30,7 @@ class TaxFactory private constructor() {
         val state1 = State("State 1")
         val state2 = State("State 2")
 
+        createTaxStorage(1.0, listOf(state1), listOf(product1, product2), listOf(year22))
         createTaxStorage(2.5, listOf(state1), listOf(product1), listOf(year23, year24))
         createTaxStorage(3.5, listOf(state2), listOf(product2), listOf(year23))
         createTaxStorage(4.5, listOf(state2), listOf(product2), listOf(year24))
