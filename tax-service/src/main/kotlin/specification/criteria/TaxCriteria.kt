@@ -11,11 +11,18 @@ class TaxCriteria(private val operator: Operator,
                   private val state: State?,
                   private val year: Year?): SearchTaxCriteria {
 
-    override fun findByCriteria(): Tax {
+    override fun findTaxByCriteria(): Tax {
         val chainFactory = ChainFactory()
         val taxSearchCriteriaChain = chainFactory.createTaxSearchCriteriaChain()
 
         return taxSearchCriteriaChain.handleTaxSearch(operator, product, state, year)
+    }
+
+    override fun findTaxesByCriteria(): List<Tax> {
+        val chainFactory = ChainFactory()
+        val taxesSearchCriteriaChain = chainFactory.createTaxSearchCriteriaChain()
+
+        return taxesSearchCriteriaChain.handleTaxesSearch(operator, product, state, year)
     }
 
 }

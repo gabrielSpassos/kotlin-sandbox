@@ -4,6 +4,8 @@ import org.gabrielspassos.models.Tax
 
 interface SearchTaxCriteria {
 
-    fun findByCriteria(): Tax?
+    fun findTaxByCriteria(): Tax?
+
+    fun findTaxesByCriteria(): List<Tax>
 
 }

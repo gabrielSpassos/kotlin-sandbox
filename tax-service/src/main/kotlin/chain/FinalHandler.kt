@@ -12,4 +12,8 @@ class FinalHandler : TaxSearchCriteriaHandler(null) {
         throw IllegalStateException("not found valid handler for operation $operator")
     }
 
+    override fun handleTaxesSearch(operator: Operator, product: Product?, state: State?, year: Year?): List<Tax> {
+        throw IllegalStateException("not found valid handler for operation $operator")
+    }
+
 }

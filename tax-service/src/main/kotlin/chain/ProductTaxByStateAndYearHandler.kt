@@ -2,10 +2,10 @@ package org.gabrielspassos.chain
 
 import org.gabrielspassos.domain.tax.TaxPerStatesProductsYears
 import org.gabrielspassos.domain.tax.TaxStorage
-import org.gabrielspassos.specification.criteria.Operator
 import org.gabrielspassos.models.Product
 import org.gabrielspassos.models.State
 import org.gabrielspassos.models.Tax
+import org.gabrielspassos.specification.criteria.Operator
 import java.time.Year
 import java.util.function.Predicate
 
@@ -34,6 +34,10 @@ class ProductTaxByStateAndYearHandler(nextHandler: TaxSearchCriteriaHandler): Ta
             .map { storedTax -> storedTax.tax }
             .findFirst()
             .orElse(null)
+    }
+
+    override fun handleTaxesSearch(operator: Operator, product: Product?, state: State?, year: Year?): List<Tax> {
+        return nextHandler!!.handleTaxesSearch(operator, product, state, year)
     }
 
     private fun isSameProduct(product: Product): Predicate<TaxPerStatesProductsYears> {

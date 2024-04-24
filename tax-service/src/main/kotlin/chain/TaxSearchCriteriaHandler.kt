@@ -10,4 +10,5 @@ abstract class TaxSearchCriteriaHandler(val nextHandler: TaxSearchCriteriaHandle
 
     abstract fun handleTaxSearch(operator: Operator, product: Product?, state: State?, year: Year?): Tax
 
+    abstract fun handleTaxesSearch(operator: Operator, product: Product?, state: State?, year: Year?): List<Tax>
 }

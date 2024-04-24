@@ -33,6 +33,10 @@ class LatestProductTaxByStateHandler(nextHandler: TaxSearchCriteriaHandler): Tax
             .orElse(null)
     }
 
+    override fun handleTaxesSearch(operator: Operator, product: Product?, state: State?, year: Year?): List<Tax> {
+        return nextHandler!!.handleTaxesSearch(operator, product, state, year)
+    }
+
     private fun isSameProduct(product: Product): Predicate<TaxPerStatesProductsYears> {
         return Predicate {
                 storedTax -> storedTax.products.stream()
