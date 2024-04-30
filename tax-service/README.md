@@ -6,14 +6,14 @@
 - ZERO persistence
 - no maps / data structure
   - only list
-- nao ter dependencia entre classes
-  - criar dependencias em outros lugares
+- no dependency between classes
+  - build these dependencies somewhere else
 
-## Queries
-- [x] qual o tax de 2023 de um determinado state?
-- [x] qual o tax atual daquele produto em determinado state?
-- [x] como pegar todas as taxas do ano 2023 
-- [x] como adicionar as taxas do ano 2024
+## Functionalities
+- [x] which is the 2023 tax from a state?
+- [x] which is the current tax of the product on specific state?
+- [x] get all taxes from 2023 year
+- [x] add taxes for 2024
 
 ## Suggestions
 - chain
