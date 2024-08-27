@@ -99,7 +99,6 @@
             <version>5.15.0</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 </project>

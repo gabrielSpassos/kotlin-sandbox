@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockserver.integration.ClientAndServer
 import org.mockserver.integration.ClientAndServer.startClientAndServer
+import org.mockserver.matchers.Times
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
 import org.mockserver.model.MediaType.APPLICATION_JSON
@@ -61,5 +62,56 @@ class MockServerIntegrationTests {
         assertEquals(200, response.statusCode())
         assertEquals(responseBody, response.body())
         assertEquals(APPLICATION_JSON.toString(), response.headers().map()[CONTENT_TYPE]?.first())
+    }
+
+    @Test
+    fun shouldExecuteSameRequestTwice() {
+        val id = UUID.randomUUID().toString()
+        val error = """
+            {
+                "message": "Test Error",
+                "code": "ERR-001",
+            }
+        """.trimIndent()
+        val responseBody = """
+            {
+                "name": "Gabriel",
+                "age": 27,
+                "isMale": true
+            }
+        """.trimIndent()
+        mockServer
+            ?.`when`(request().withMethod("GET").withPath("/v1/people/$id"), Times.exactly(1))
+            ?.respond(response()
+                .withStatusCode(400)
+                .withBody(error)
+                .withHeader(CONTENT_TYPE, APPLICATION_JSON.toString())
+            )
+        mockServer
+            ?.`when`(request().withMethod("GET").withPath("/v1/people/$id"), Times.exactly(1))
+            ?.respond(response()
+                .withStatusCode(200)
+                .withBody(responseBody)
+                .withHeader(CONTENT_TYPE, APPLICATION_JSON.toString())
+            )
+
+        val request = HttpRequest.newBuilder()
+            .uri(URI("http://localhost:$port/v1/people/$id"))
+            .header(CONTENT_TYPE, APPLICATION_JSON.toString())
+            .header(ACCEPT, APPLICATION_JSON.toString())
+            .GET()
+            .build()
+        val httpClient = HttpClient.newHttpClient()
+
+        val firstResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
+        val secondResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
+
+        assertEquals(400, firstResponse.statusCode())
+        assertEquals(error, firstResponse.body())
+        assertEquals(APPLICATION_JSON.toString(), firstResponse.headers().map()[CONTENT_TYPE]?.first())
+
+        assertEquals(200, secondResponse.statusCode())
+        assertEquals(responseBody, secondResponse.body())
+        assertEquals(APPLICATION_JSON.toString(), secondResponse.headers().map()[CONTENT_TYPE]?.first())
     }
 }
