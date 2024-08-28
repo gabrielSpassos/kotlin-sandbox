@@ -1,7 +1,9 @@
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import com.github.tomakehurst.wiremock.client.WireMock.equalToJson
 import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.github.tomakehurst.wiremock.common.ContentTypes.ACCEPT
 import com.github.tomakehurst.wiremock.common.ContentTypes.APPLICATION_JSON
@@ -64,6 +66,33 @@ class WiremockIntegrationTests {
         assertEquals(200, response.statusCode())
         assertEquals(responseBody, response.body())
         assertEquals(APPLICATION_JSON, response.headers().map()[CONTENT_TYPE]?.first())
+    }
+
+    @Test
+    fun shouldExecutePostRequest() {
+        val requestBody = """{"username": "Gabriel", "password": "week-pass"}"""
+        val responseBody = """{"token": "${UUID.randomUUID()}"}"""
+
+        wireMockServer.stubFor(post(urlEqualTo("/v1/login"))
+            .withRequestBody(equalToJson(requestBody))
+            .willReturn(aResponse()
+                .withStatus(201)
+                .withHeader(CONTENT_TYPE, APPLICATION_JSON)
+                .withBody(responseBody)))
+
+        val request = HttpRequest.newBuilder()
+            .uri(URI("http://localhost:$port/v1/login"))
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString())
+            .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON.toString())
+            .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+            .build()
+        val httpClient = HttpClient.newHttpClient()
+
+        val response = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
+
+        assertEquals(201, response.statusCode())
+        assertEquals(responseBody, response.body())
+        assertEquals(MediaType.APPLICATION_JSON.toString(), response.headers().map()[HttpHeaders.CONTENT_TYPE]?.first())
     }
 
     @Test

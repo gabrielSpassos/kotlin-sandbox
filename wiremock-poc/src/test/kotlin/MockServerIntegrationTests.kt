@@ -65,6 +65,34 @@ class MockServerIntegrationTests {
     }
 
     @Test
+    fun shouldExecutePostRequest() {
+        val requestBody = """{"username": "Gabriel", "password": "week-pass"}"""
+        val responseBody = """{"token": "${UUID.randomUUID()}"}"""
+
+        mockServer
+            ?.`when`(request().withMethod("POST").withPath("/v1/login").withBody(requestBody))
+            ?.respond(response()
+                .withStatusCode(201)
+                .withBody(responseBody)
+                .withHeader(CONTENT_TYPE, APPLICATION_JSON.toString())
+            )
+
+        val request = HttpRequest.newBuilder()
+            .uri(URI("http://localhost:$port/v1/login"))
+            .header(CONTENT_TYPE, APPLICATION_JSON.toString())
+            .header(ACCEPT, APPLICATION_JSON.toString())
+            .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+            .build()
+        val httpClient = HttpClient.newHttpClient()
+
+        val response = httpClient.send(request, HttpResponse.BodyHandlers.ofString())
+
+        assertEquals(201, response.statusCode())
+        assertEquals(responseBody, response.body())
+        assertEquals(APPLICATION_JSON.toString(), response.headers().map()[CONTENT_TYPE]?.first())
+    }
+
+    @Test
     fun shouldExecuteSameRequestTwice() {
         val id = UUID.randomUUID().toString()
         val error = """
