@@ -9,6 +9,8 @@
 
 - https://kotlinlang.org/docs/k2-compiler-migration-guide.html#support-in-ides
     - Settings > Languages & Frameworks > Kotlin > Enable K2 mode
+    ![Screenshot 2024-09-04 at 14 21 34](https://github.com/user-attachments/assets/1c02a0d5-0991-4928-ae04-86fa747bfcef)
+
 
 ### Features
 
