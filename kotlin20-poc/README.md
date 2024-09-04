@@ -5,6 +5,11 @@
 - https://kotlinlang.org/docs/whatsnew20.html
 - https://kotlinlang.org/docs/whatsnew2020.html
 
+### Enable K2 compiler
+
+- https://kotlinlang.org/docs/k2-compiler-migration-guide.html#support-in-ides
+    - Settings > Languages & Frameworks > Kotlin > Enable K2 mode
+
 ### Features
 
 - [x] https://kotlinlang.org/docs/whatsnew20.html#local-variables-and-further-scopes
