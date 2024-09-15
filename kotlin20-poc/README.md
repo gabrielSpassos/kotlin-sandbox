@@ -89,7 +89,7 @@
 - [x] https://kotlinlang.org/docs/whatsnew20.html#inline-functions
 - [x] https://kotlinlang.org/docs/whatsnew20.html#properties-with-function-types
 - [x] https://kotlinlang.org/docs/whatsnew20.html#exception-handling
-- [ ] https://kotlinlang.org/docs/whatsnew20.html#increment-and-decrement-operators
+- [x] https://kotlinlang.org/docs/whatsnew20.html#increment-and-decrement-operators
 
 ### Outputs
 
