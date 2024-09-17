@@ -5,12 +5,6 @@
 - https://kotlinlang.org/docs/whatsnew20.html
 - https://kotlinlang.org/docs/whatsnew2020.html
 
-### Enable K2 compiler
-
-- https://kotlinlang.org/docs/k2-compiler-migration-guide.html#support-in-ides
-    - Settings > Languages & Frameworks > Kotlin > Enable K2 mode
-    ![Screenshot 2024-09-04 at 14 21 34](https://github.com/user-attachments/assets/1c02a0d5-0991-4928-ae04-86fa747bfcef)
-
 ### Maven configuration
 ```maven
 <properties>
@@ -94,3 +88,32 @@
 ### Outputs
 
 Kotlin 2.0.0 was released: May 21, 2024
+
+Kotlin Multiplatform improvements
+
+In Kotlin 2.0.0, we've made improvements in the K2 compiler related to Kotlin Multiplatform in the following areas:
+
+Separation of common and platform sources during compilation
+  - The previous kotlin compiler had some design that enabled the common source code access platform code, 
+  which could cause different behavior between platform, and also settings and dependencies could leak to platform
+
+Different visibility levels of expected and actual declarations
+  - expected and actual declarations
+    - declare on common code standard Kotlin construct and mark it with `expect`, should not have any implementation.
+    This can be a function, property, class, interface, enumeration, or annotation.
+    - each platform-specific provides the implementation. The platform declare the same construct in the same package 
+    and mark it with the `actual` keyword. This is your actual declaration, 
+    which typically contains an implementation using platform-specific libraries.
+
+Kotlin 2.0.0 supports different visibility levels, only if the `actual` declaration is more **permissive** than the `expected`
+
+```kotlin
+expect internal class Attribute // Visibility is internal
+actual class Attribute          // Visibility is public by default, which is more permissive
+```
+
+### Enable K2 compiler
+
+- https://kotlinlang.org/docs/k2-compiler-migration-guide.html#support-in-ides
+  - Settings > Languages & Frameworks > Kotlin > Enable K2 mode
+    ![Screenshot 2024-09-04 at 14 21 34](https://github.com/user-attachments/assets/1c02a0d5-0991-4928-ae04-86fa747bfcef)
