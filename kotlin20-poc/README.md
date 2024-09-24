@@ -203,15 +203,66 @@ Suspend functions as ES2015 generators https://kotlinlang.org/docs/whatsnew20.ht
 Passing arguments to the main function
 
 Per-file compilation for Kotlin/JS projects
+  - previously the Kotlin/JS compiler could generate a single .js file for all the project, or module (default option)
+  - Now kotlin 2.0.0 also is possible to generate one .js per kotlin 
+    ```gradle
+    // build.gradle.kts
+    kotlin {
+        js(IR) {
+            useEsModules() // Enables ES2015 modules
+            browser()
+        }
+    }
+    ```
+    ```gradle
+    # gradle.properties
+    kotlin.js.ir.output.granularity=per-file // `per-module` is the default
+    ```
 
 Improved collection interoperability
+  - Use kotlin data structures on JS
+    ```kotlin
+    // Kotlin
+    @JsExport
+    data class User(
+      val name: String,
+      val friends: List<User> = emptyList()
+    )
+    
+    @JsExport
+    val me = User(
+      name = "Me",
+      friends = listOf(User(name = "Kodee"))
+    )
+    ```
+    ```javascript
+    // JavaScript
+    import { User, me, KtList } from "my-module"
+    
+    const allMyFriendNames = me.friends
+      .asJsReadonlyArrayView()
+      .map(x => x.name) // [‘Kodee']
+    ```
 
 Support for createInstance()
+  - Use the function `createInstance` https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/create-instance.html
+  - On runtime get instance of class
 
 Support for type-safe plain JavaScript objects
+    - https://kotlinlang.org/docs/whatsnew20.html#support-for-type-safe-plain-javascript-objects
+  - only supported on K2 compiler
+  - experimental plugin
+  - //todo
 
 Support for npm package manager
+    - before only yarn as package manager (yarn still default)
+    - now also is possible to use npm
+    ```gradle
+    # gradle.properties
+    kotlin.js.yarn = false
+    ```
 
 Changes to compilation tasks
+    - separation of target directories for webpack, distributeResources and distribution
 
 Discontinuing legacy Kotlin/JS JAR artifacts
