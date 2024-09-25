@@ -266,3 +266,33 @@ Changes to compilation tasks
     - separation of target directories for webpack, distributeResources and distribution
 
 Discontinuing legacy Kotlin/JS JAR artifacts
+
+#### Kotlin/Gradle
+- compatible with Gradle 6.8.3 through 8.5
+
+New Gradle DSL for compiler options in multiplatform projects 
+    ![img.png](img.png)
+    
+    - values from higher levels compiler options are passed as default values from lower levels 
+        - extension compiler options > target compiler options > compilation unit (task) compiler options
+
+    - values from lower levels override related settings from higher level
+        - task level > target > extension 
+
+New Compose compiler Gradle plugin
+    - https://kotlinlang.org/docs/whatsnew20.html#new-compose-compiler-gradle-plugin
+
+New attribute to distinguish JVM and Android-published libraries
+    - `org.gradle.jvm.environment` is published by default with all Kotlin variants
+    -  This attribute helps distinguish JVM and Android variants of Kotlin Multiplatform libraries.
+    - values: "android", "standard-jvm", or "no-jvm".
+    - to disable:
+    ```gradle
+    # gradle.properties
+    kotlin.publishJvmEnvironmentAttribute=false
+    ```
+
+Improved Gradle dependency handling for CInteropProcess in Kotlin/Native
+
+    
+        
