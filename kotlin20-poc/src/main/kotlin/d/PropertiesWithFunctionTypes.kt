@@ -1,4 +1,4 @@
-package com.gabrielspassos
+package com.gabrielspassos.d
 
 class HolderOne(val provider: (() -> Unit)?) {
     fun process() {
