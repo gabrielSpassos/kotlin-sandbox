@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: kotlin20-spring-poc
+    port: 8080
+
+kafka:
+  bootstrap-servers: ${KAFKA_URL:localhost}:9092
+  person-topic: person-topic
+  consumer-group: kotlin20-poc
