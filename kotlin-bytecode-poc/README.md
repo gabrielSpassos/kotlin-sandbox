@@ -110,3 +110,82 @@ public final class Person {
    }
 }
 ```
+
+## Class
+
+* Kotlin
+
+```kotlin
+class Animal(private val name: String)
+```
+
+* Java
+
+```java
+package com.gabrielspassos;
+
+import kotlin.Metadata;
+import kotlin.jvm.internal.Intrinsics;
+import org.jetbrains.annotations.NotNull;
+
+@Metadata(
+   mv = {2, 0, 0},
+   k = 1,
+   xi = 48,
+   d1 = {"\u0000\u0012\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0002\u0018\u00002\u00020\u0001B\r\u0012\u0006\u0010\u0002\u001a\u00020\u0003¢\u0006\u0002\u0010\u0004R\u000e\u0010\u0002\u001a\u00020\u0003X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\u0005"},
+   d2 = {"Lcom/gabrielspassos/Animal;", "", "name", "", "(Ljava/lang/String;)V", "kotlin-bytecode-poc"}
+)
+public final class Animal {
+   @NotNull
+   private final String name;
+
+   public Animal(@NotNull String name) {
+      Intrinsics.checkNotNullParameter(name, "name");
+      super();
+      this.name = name;
+   }
+}
+```
+
+## Object
+
+* Kotlin
+
+```kotlin
+package com.gabrielspassos
+
+object Singleton {
+    val name = "MyCustomSingleton"
+}
+```
+
+* Java
+
+```java
+package com.gabrielspassos;
+
+import kotlin.Metadata;
+import org.jetbrains.annotations.NotNull;
+
+@Metadata(
+   mv = {2, 0, 0},
+   k = 1,
+   xi = 48,
+   d1 = {"\u0000\u0014\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0003\bÆ\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002¢\u0006\u0002\u0010\u0002R\u0014\u0010\u0003\u001a\u00020\u0004X\u0086D¢\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\u0006¨\u0006\u0007"},
+   d2 = {"Lcom/gabrielspassos/Singleton;", "", "()V", "name", "", "getName", "()Ljava/lang/String;", "kotlin-bytecode-poc"}
+)
+public final class Singleton {
+   @NotNull
+   public static final Singleton INSTANCE = new Singleton();
+   @NotNull
+   private static final String name = "MyCustomSingleton";
+
+   private Singleton() {
+   }
+
+   @NotNull
+   public final String getName() {
+      return name;
+   }
+}
+```
