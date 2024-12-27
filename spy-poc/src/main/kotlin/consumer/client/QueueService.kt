@@ -5,12 +5,12 @@ import java.util.Optional
 
 interface QueueService {
 
-    fun addMessage(queueMessage: QueueMessage): Boolean
+    fun addMessage(queueName: String, queueMessage: QueueMessage): Boolean
 
-    fun consumeMessage(): Optional<QueueMessage>
+    fun consumeMessage(queueName: String): Optional<QueueMessage>
 
-    fun consumeMessages(batchSize: Int = 10): List<QueueMessage>
+    fun consumeMessages(queueName: String, batchSize: Int = 10): List<QueueMessage>
 
-    fun deleteMessage(messageId: String): Boolean
+    fun deleteMessage(queueName: String, messageId: String): Boolean
 
 }

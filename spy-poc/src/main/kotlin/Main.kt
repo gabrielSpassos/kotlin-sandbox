@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import java.util.UUID
 
 
+private const val queueName = "bank-queue"
 private val gson = Gson()
 private val bankRepository = InMemoryBankRepository()
 private val bankDAO = BankDAO(bankRepository = bankRepository)
@@ -41,7 +42,7 @@ private fun processBank(id: Long) {
         println("BankDTO $it")
         val message = mapToQueueMessage(it)
         println("QueueMessage $message")
-        queueService.addMessage(message)
+        queueService.addMessage(queueName, message)
     }
 }
 

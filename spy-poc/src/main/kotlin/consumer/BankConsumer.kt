@@ -8,24 +8,25 @@ import com.google.gson.Gson
 class BankConsumer(private val bankService: BankService, private val queueService: QueueService) {
 
     private val gson = Gson()
+    private val queueName = "bank-queue"
 
     fun processSingleMessage(): Boolean {
-        val queueMessage = queueService.consumeMessage()
+        val queueMessage = queueService.consumeMessage(queueName)
         return queueMessage.map { message ->
             val bankDTO = gson.fromJson(message.body, BankDTO::class.java)
             bankService.update(bankDTO)
             println("Consumer bank: $bankDTO")
-            queueService.deleteMessage(message.id)
+            queueService.deleteMessage(queueName, message.id)
         }.orElse(false)
     }
 
     fun processMultipleMessages(): Boolean {
-        return queueService.consumeMessages(5)
+        return queueService.consumeMessages(queueName, 5)
             .map { message ->
                 val bankDTO = gson.fromJson(message.body, BankDTO::class.java)
                 bankService.update(bankDTO)
                 println("Consumer bank: $bankDTO")
-                queueService.deleteMessage(message.id)
+                queueService.deleteMessage(queueName, message.id)
             }.all { result -> result }
     }
 }
