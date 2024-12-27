@@ -31,6 +31,7 @@ class BankConsumer(private val bankService: BankService, private val queueServic
             return queueService.deleteMessage(queueName, message.id)
         } catch (e: Exception) {
             println("Error to process message: ${e.message}")
+            //todo: remove below line to see what will happen to tests
             queueService.addMessage(dlqName, message)
             return false
         }
