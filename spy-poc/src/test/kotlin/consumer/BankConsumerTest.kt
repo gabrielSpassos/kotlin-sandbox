@@ -5,6 +5,7 @@ import com.gabrielspassos.consumer.client.InMemoryQueueClient
 import com.gabrielspassos.consumer.model.QueueMessage
 import com.gabrielspassos.dto.BankDTO
 import com.gabrielspassos.service.BankService
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
@@ -12,7 +13,6 @@ import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.Optional
 import java.util.UUID
-import kotlin.test.assertTrue
 
 @ExtendWith(MockitoExtension::class)
 class BankConsumerTest {
@@ -36,7 +36,7 @@ class BankConsumerTest {
      given(queueService.deleteMessage(messageId)).willReturn(true)
 
       // when
-      val result = bankConsumer.consume()
+      val result = bankConsumer.consumeSingleMessage()
 
      // then
      assertTrue { result }

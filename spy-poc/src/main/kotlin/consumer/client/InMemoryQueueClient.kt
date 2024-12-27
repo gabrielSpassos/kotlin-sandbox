@@ -21,7 +21,10 @@ class InMemoryQueueClient: QueueService {
     }
 
     override fun deleteMessage(messageId: String): Boolean {
-        val queueMessage = stack.first { message -> message.id == messageId }
+        val queueMessage = stack.firstOrNull { message -> message.id == messageId }
+        if (null == queueMessage) {
+            throw IllegalArgumentException("Message not found")
+        }
         stack.remove(queueMessage)
         return true
     }

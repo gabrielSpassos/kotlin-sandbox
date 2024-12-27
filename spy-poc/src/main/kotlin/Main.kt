@@ -30,10 +30,10 @@ fun main() {
         processBank(3L)
         processBank(4L)
 
-        bankConsumer.consume()
-        bankConsumer.consume()
-        bankConsumer.consume()
-        bankConsumer.consume()
+        bankConsumer.consumeSingleMessage()
+        bankConsumer.consumeSingleMessage()
+        bankConsumer.consumeSingleMessage()
+        bankConsumer.consumeSingleMessage()
     } catch (e: Exception) {
         println("Error: ${e.message}")
     }

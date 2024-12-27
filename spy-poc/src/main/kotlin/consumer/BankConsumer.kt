@@ -9,7 +9,7 @@ class BankConsumer(private val bankService: BankService, private val queueServic
 
     private val gson = Gson()
 
-    fun consume(): Boolean {
+    fun consumeSingleMessage(): Boolean {
         val queueMessage = queueService.consumeMessage()
         return queueMessage.map { message ->
             val bankDTO = gson.fromJson(message.body, BankDTO::class.java)
@@ -18,6 +18,5 @@ class BankConsumer(private val bankService: BankService, private val queueServic
             queueService.deleteMessage(message.id)
             true
         }.orElse(false)
-
     }
 }

@@ -3,13 +3,13 @@ package service
 import com.gabrielspassos.dao.BankDAO
 import com.gabrielspassos.model.BankEntity
 import com.gabrielspassos.service.BankService
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import java.util.Optional
-import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
 class BankServiceTest {
