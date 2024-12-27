@@ -9,14 +9,23 @@ class BankConsumer(private val bankService: BankService, private val queueServic
 
     private val gson = Gson()
 
-    fun consumeSingleMessage(): Boolean {
+    fun processSingleMessage(): Boolean {
         val queueMessage = queueService.consumeMessage()
         return queueMessage.map { message ->
             val bankDTO = gson.fromJson(message.body, BankDTO::class.java)
             bankService.update(bankDTO)
             println("Consumer bank: $bankDTO")
             queueService.deleteMessage(message.id)
-            true
         }.orElse(false)
+    }
+
+    fun processMultipleMessages(): Boolean {
+        return queueService.consumeMessages(5)
+            .map { message ->
+                val bankDTO = gson.fromJson(message.body, BankDTO::class.java)
+                bankService.update(bankDTO)
+                println("Consumer bank: $bankDTO")
+                queueService.deleteMessage(message.id)
+            }.all { result -> result }
     }
 }

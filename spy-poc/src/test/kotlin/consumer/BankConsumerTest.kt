@@ -23,23 +23,23 @@ class BankConsumerTest {
  @Mock
  private lateinit var queueService: InMemoryQueueClient
 
- @Test
- fun shouldConsumeMessage() {
-     // given
-     val bankConsumer = BankConsumer(bankService, queueService)
-     val bankDTO = BankDTO(1L, "Brazil Bank", "100-queue")
-     val messageId = UUID.randomUUID().toString()
-     val queueMessage = QueueMessage(messageId, "{\"id\":1,\"name\":\"Brazil Bank\",\"code\":\"100-queue\"}")
+     @Test
+     fun shouldConsumeMessage() {
+         // given
+         val bankConsumer = BankConsumer(bankService, queueService)
+         val bankDTO = BankDTO(1L, "Brazil Bank", "100-queue")
+         val messageId = UUID.randomUUID().toString()
+         val queueMessage = QueueMessage(messageId, "{\"id\":1,\"name\":\"Brazil Bank\",\"code\":\"100-queue\"}")
 
-     given(queueService.consumeMessage()).willReturn(Optional.of(queueMessage))
-     given(bankService.update(bankDTO)).willReturn(bankDTO)
-     given(queueService.deleteMessage(messageId)).willReturn(true)
+         given(queueService.consumeMessage()).willReturn(Optional.of(queueMessage))
+         given(bankService.update(bankDTO)).willReturn(bankDTO)
+         given(queueService.deleteMessage(messageId)).willReturn(true)
 
-      // when
-      val result = bankConsumer.consumeSingleMessage()
+          // when
+          val result = bankConsumer.processSingleMessage()
 
-     // then
-     assertTrue { result }
- }
+         // then
+         assertTrue { result }
+     }
 
 }

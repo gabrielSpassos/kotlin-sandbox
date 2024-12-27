@@ -22,7 +22,6 @@ fun main() {
     try {
         println("Bank Basic POC")
 
-
         bankService.seed()
 
         processBank(1L)
@@ -30,10 +29,8 @@ fun main() {
         processBank(3L)
         processBank(4L)
 
-        bankConsumer.consumeSingleMessage()
-        bankConsumer.consumeSingleMessage()
-        bankConsumer.consumeSingleMessage()
-        bankConsumer.consumeSingleMessage()
+        bankConsumer.processSingleMessage()
+        bankConsumer.processMultipleMessages()
     } catch (e: Exception) {
         println("Error: ${e.message}")
     }
