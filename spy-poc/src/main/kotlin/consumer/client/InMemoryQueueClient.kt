@@ -16,6 +16,10 @@ class InMemoryQueueClient: QueueService {
         return Optional.ofNullable(stack.getOrNull(0))
     }
 
+    override fun consumeMessages(batchSize: Int): List<QueueMessage> {
+        return stack.take(batchSize)
+    }
+
     override fun deleteMessage(messageId: String): Boolean {
         val queueMessage = stack.first { message -> message.id == messageId }
         stack.remove(queueMessage)

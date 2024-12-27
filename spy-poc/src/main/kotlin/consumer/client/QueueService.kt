@@ -9,6 +9,8 @@ interface QueueService {
 
     fun consumeMessage(): Optional<QueueMessage>
 
+    fun consumeMessages(batchSize: Int = 10): List<QueueMessage>
+
     fun deleteMessage(messageId: String): Boolean
 
 }
