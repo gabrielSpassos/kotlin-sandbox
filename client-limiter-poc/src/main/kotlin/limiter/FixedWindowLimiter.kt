@@ -1,12 +1,12 @@
 package com.gabrielspassos.limiter
 
-class FixedWindowLimiter {
+class FixedWindowLimiter: Limiter {
 
     private val limitMap = mutableMapOf<String, FixedWindow>()
     private val threshold = 3
     private val periodInSeconds: Long = 1
 
-    fun request(requestName: String): Boolean {
+    override fun isRequestAcceptable(requestName: String): Boolean {
         val fixedWindow = limitMap[requestName]
         val currentTime = System.currentTimeMillis()
 

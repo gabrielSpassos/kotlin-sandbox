@@ -13,7 +13,7 @@ class FixedWindowLimiterTest {
         val requestName = "test"
 
         // Act
-        val result = fixedWindowLimiter.request(requestName)
+        val result = fixedWindowLimiter.isRequestAcceptable(requestName)
 
         // Assert
         assertTrue(result)
@@ -26,10 +26,10 @@ class FixedWindowLimiterTest {
         val requestName = "test"
 
         // Act
-        val result1 = fixedWindowLimiter.request(requestName)
-        val result2 = fixedWindowLimiter.request(requestName)
-        val result3 = fixedWindowLimiter.request(requestName)
-        val result4 = fixedWindowLimiter.request(requestName)
+        val result1 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result2 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result3 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result4 = fixedWindowLimiter.isRequestAcceptable(requestName)
 
         // Assert
         assertTrue(result1)
@@ -45,15 +45,15 @@ class FixedWindowLimiterTest {
         val requestName = "test"
 
         // Act
-        val result1 = fixedWindowLimiter.request(requestName)
-        val result2 = fixedWindowLimiter.request(requestName)
-        val result3 = fixedWindowLimiter.request(requestName)
-        val result4 = fixedWindowLimiter.request(requestName)
+        val result1 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result2 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result3 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result4 = fixedWindowLimiter.isRequestAcceptable(requestName)
         Thread.sleep(1000)
-        val result5 = fixedWindowLimiter.request(requestName)
-        val result6 = fixedWindowLimiter.request(requestName)
-        val result7 = fixedWindowLimiter.request(requestName)
-        val result8 = fixedWindowLimiter.request(requestName)
+        val result5 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result6 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result7 = fixedWindowLimiter.isRequestAcceptable(requestName)
+        val result8 = fixedWindowLimiter.isRequestAcceptable(requestName)
 
         // Assert
         assertTrue(result1)
