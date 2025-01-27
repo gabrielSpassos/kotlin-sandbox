@@ -1,11 +1,12 @@
 package com.gabrielspassos.limiter
 
-import java.util.ArrayDeque
 import java.util.Deque
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentLinkedDeque
 
 class SlidingWindowLimiter: Limiter {
 
-    private val limitMap = mutableMapOf<String, Deque<Long>>()
+    private val limitMap: ConcurrentHashMap<String, Deque<Long>> = ConcurrentHashMap()
     private val threshold = 3
     private val periodInSeconds: Long = 1
 
@@ -14,7 +15,7 @@ class SlidingWindowLimiter: Limiter {
         val currentTime = System.currentTimeMillis()
         // first check if this is the first request, if that is the case the deque won't be initialized
         if (null == deque) {
-            val newDeque = ArrayDeque<Long>()
+            val newDeque = ConcurrentLinkedDeque<Long>()
             newDeque.add(currentTime)
             limitMap[requestName] = newDeque
             return true

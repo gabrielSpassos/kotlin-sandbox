@@ -3,6 +3,19 @@
 > This is a proof of concept for a client side limiter. 
 > The limiter is a simple class that can be used to limit the number of requests made to a server.
 
+# Performance Test
+
+| Limiter       | # of requests | Time Taken (ms) |
+|---------------|---------------|-----------------|
+| FixedWindow   | 100           | 1               | 
+| SlidingWindow | 100           | 1               | 
+| FixedWindow   | 1000          | 1               | 
+| SlidingWindow | 1000          | 1               | 
+| FixedWindow   | 1000000       | 23              | 
+| SlidingWindow | 1000000       | 46              | 
+| FixedWindow   | 10000000      | 203             | 
+| SlidingWindow | 10000000      | 407             | 
+
 ### Server
 
 The server is a simple open api about countries. https://restcountries.com/#endpoints-all

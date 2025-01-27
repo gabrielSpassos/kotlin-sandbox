@@ -1,8 +1,11 @@
 package com.gabrielspassos.limiter
 
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicInteger
+
 class FixedWindowLimiter: Limiter {
 
-    private val limitMap = mutableMapOf<String, FixedWindow>()
+    private val limitMap: ConcurrentHashMap<String, FixedWindow> = ConcurrentHashMap()
     private val threshold = 3
     private val periodInSeconds: Long = 1
 
@@ -11,12 +14,13 @@ class FixedWindowLimiter: Limiter {
         val currentTime = System.currentTimeMillis()
 
         if (fixedWindow == null || currentTime - fixedWindow.timestamp > secondsToMillis(periodInSeconds)) {
-            limitMap[requestName] = FixedWindow(1, currentTime)
+            limitMap[requestName] = FixedWindow(AtomicInteger(1), currentTime)
             return true
         } else {
             // check if we have breached the count already
-            if (fixedWindow.count < threshold) {
-                val updatedWindow = FixedWindow(fixedWindow.count + 1, currentTime)
+            if (fixedWindow.count.get() < threshold) {
+                fixedWindow.count.incrementAndGet()
+                val updatedWindow = FixedWindow(fixedWindow.count, currentTime)
                 limitMap[requestName] = updatedWindow
                 return true
             } else {
@@ -30,4 +34,4 @@ class FixedWindowLimiter: Limiter {
     }
 }
 
-private data class FixedWindow(val count: Int, val timestamp: Long)
+private data class FixedWindow(val count: AtomicInteger, val timestamp: Long)
