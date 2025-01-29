@@ -1,36 +1,39 @@
 package com.gabrielspassos
 
-import java.util.UUID
-
 class ReportService {
 
     private val report = OutsideObject(
-        total = 5,
+        total = 6,
         innerList = listOf(
             InternalObject(
-                id = UUID.randomUUID(),
+                id = 1,
                 isSuccess = true,
                 errors = listOf()
             ),
             InternalObject(
-                id = UUID.randomUUID(),
+                id = 2,
                 isSuccess = false,
                 errors = listOf("error1", "error2")
             ),
             InternalObject(
-                id = UUID.randomUUID(),
+                id = 3,
                 isSuccess = false,
                 errors = listOf("error3", "error2")
             ),
             InternalObject(
-                id = UUID.randomUUID(),
+                id = 4,
                 isSuccess = false,
                 errors = listOf("error2", "error3")
             ),
             InternalObject(
-                id = UUID.randomUUID(),
+                id = 5,
                 isSuccess = true,
                 errors = listOf()
+            ),
+            InternalObject(
+                id = 6,
+                isSuccess = false,
+                errors = listOf("error2")
             ),
         )
     )
@@ -41,10 +44,12 @@ class ReportService {
         val failureCases = innerListPartition.second
 
         val errorsReport = failureCases
-            .flatMap { it.errors }
-            .groupBy { it }
-            .map { (key, value) -> key to value.size }
-            .joinToString(separator = "\n ") { (key, value) -> "Error: $key | Count: $value" }
+            .flatMap { internalObject -> internalObject.errors.map { error -> error to internalObject.id } }
+            .groupBy { (errorName, id) -> errorName }
+            .mapValues { (errorName, errorsAndIds) -> errorsAndIds.map { (name, id) -> id } }
+            .toList()
+            .sortedByDescending { (errorName, ids) -> ids.size }
+            .joinToString(separator = "\n ") { (errorName, ids) -> "Error: $errorName | Count: ${ids.size} | Users: $ids" }
 
         val report = """
             | Report POC
@@ -58,4 +63,5 @@ class ReportService {
 
         return report
     }
+
 }

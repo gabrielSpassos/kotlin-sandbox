@@ -9,14 +9,14 @@ class ReportServiceTest {
         val expected =
             """
             | Report POC
-            | Total: 5
-            | Inner List Count: 5
+            | Total: 6
+            | Inner List Count: 6
             | Success Count: 2
-            | Failure Count: 3
+            | Failure Count: 4
             | Errors Report:
-            | Error: error1 | Count: 1
-            | Error: error2 | Count: 3
-            | Error: error3 | Count: 2
+            | Error: error2 | Count: 4 | Users: [2, 3, 4, 6]
+            | Error: error3 | Count: 2 | Users: [3, 4]
+            | Error: error1 | Count: 1 | Users: [2]
             """.trimMargin()
 
         val reportService = ReportService()
