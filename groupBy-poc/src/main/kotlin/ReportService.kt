@@ -2,43 +2,7 @@ package com.gabrielspassos
 
 class ReportService {
 
-    private val report = OutsideObject(
-        total = 6,
-        innerList = listOf(
-            InternalObject(
-                id = 1,
-                isSuccess = true,
-                errors = listOf()
-            ),
-            InternalObject(
-                id = 2,
-                isSuccess = false,
-                errors = listOf("error1", "error2")
-            ),
-            InternalObject(
-                id = 3,
-                isSuccess = false,
-                errors = listOf("error3", "error2")
-            ),
-            InternalObject(
-                id = 4,
-                isSuccess = false,
-                errors = listOf("error2", "error3")
-            ),
-            InternalObject(
-                id = 5,
-                isSuccess = true,
-                errors = listOf()
-            ),
-            InternalObject(
-                id = 6,
-                isSuccess = false,
-                errors = listOf("error2")
-            ),
-        )
-    )
-
-    fun getReport(): String {
+    fun getReport(report: OutsideObject): String {
         val innerListPartition = report.innerList.partition { it.isSuccess }
         val successCases = innerListPartition.first
         val failureCases = innerListPartition.second
