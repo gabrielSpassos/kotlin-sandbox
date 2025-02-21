@@ -7,11 +7,10 @@ import org.springframework.data.relational.core.mapping.Table
 import java.util.UUID
 
 @Table(name = "person")
-data class PersonEntity(
+class PersonEntity(
 
     @Id
     @Column("ID")
-    @ConvertUUIDToString
     val id: UUID? = null,
 
     @ConvertUUIDToString
@@ -21,4 +20,7 @@ data class PersonEntity(
     @Column("name")
     val name: String,
 
-)
+) {
+    fun copy(id: UUID? = this.id, externalId: UUID = this.externalId, name: String = this.name) =
+        PersonEntity(id = id, externalId = externalId, name = name)
+}

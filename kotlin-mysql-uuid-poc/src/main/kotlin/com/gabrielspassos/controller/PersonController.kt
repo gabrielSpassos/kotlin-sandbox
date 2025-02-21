@@ -4,6 +4,8 @@ import com.gabrielspassos.controller.request.PersonRequest
 import com.gabrielspassos.entity.PersonEntity
 import com.gabrielspassos.service.PersonService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,21 +19,21 @@ import java.util.UUID
 class PersonController (@Autowired private val personService: PersonService) {
 
     @GetMapping
-    fun getAllPeople(): List<PersonEntity> = personService.getAllPersons()
+    fun getAllPeople(): ResponseEntity<List<PersonEntity>> = ResponseEntity.ok(personService.getAllPersons())
 
     @PostMapping
-    fun createPerson(@RequestBody personRequest: PersonRequest) {
-        personService.createPerson(personRequest)
+    fun createPerson(@RequestBody personRequest: PersonRequest): ResponseEntity<PersonEntity> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(personService.createPerson(personRequest))
     }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable("id") id: UUID): PersonEntity {
-        return personService.getPersonById(id)
+    fun getById(@PathVariable("id") id: UUID): ResponseEntity<PersonEntity> {
+        return ResponseEntity.ok(personService.getPersonById(id))
     }
 
     @GetMapping("/externalId/{externalId}")
-    fun getByExternalId(@PathVariable("externalId") externalId: UUID): PersonEntity {
-        return personService.getPersonByExternalId(externalId)
+    fun getByExternalId(@PathVariable("externalId") externalId: UUID): ResponseEntity<PersonEntity> {
+        return ResponseEntity.ok(personService.getPersonByExternalId(externalId))
     }
 
 }

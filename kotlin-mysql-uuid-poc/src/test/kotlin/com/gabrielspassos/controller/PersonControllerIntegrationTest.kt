@@ -41,12 +41,12 @@ class PersonControllerIntegrationTest(@Autowired private val personRepository: P
             HttpResponse.BodyHandlers.ofString()
         )
 
-        assertEquals(200, response.statusCode())
+        assertEquals(201, response.statusCode())
         assertNotNull(response.body())
 
         val responseBody = JSONObject(response.body())
         assertNotNull(responseBody.get("id"))
-        assertEquals(externalId, responseBody.get("externalId"))
+        assertEquals(externalId.toString(), responseBody.getString("externalId"))
         assertEquals("John", responseBody.get("name"))
     }
 }
