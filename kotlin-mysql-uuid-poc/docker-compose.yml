@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:latest
+    container_name: kotlin_mysql_uuid_poc
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: uuid-poc
+      MYSQL_USER: uuid-user
+      MYSQL_PASSWORD: uuid-pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - kotlin_mysql_uuid_poc_data:/var/lib/mysql
+    networks:
+      - kotlin_mysql_uuid_poc_net
+
+volumes:
+  kotlin_mysql_uuid_poc_data:
+
+networks:
+  kotlin_mysql_uuid_poc_net:
+    driver: bridge
