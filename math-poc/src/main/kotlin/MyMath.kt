@@ -10,7 +10,7 @@ object MyMath {
     }
 
     fun splitGroups(group: Int): Pair<Long, Long> {
-        val totalPages = 50
+        val totalPages = 52
         val pagesToProcess = divideIntRound(totalPages.toLong(), 5)
 
         val firstPage = if (1 == group) {
