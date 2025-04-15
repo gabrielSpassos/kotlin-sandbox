@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: document-db-poc-kotlin
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: catalog
+      username: root
+      password: example
