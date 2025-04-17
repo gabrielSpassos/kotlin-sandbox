@@ -3,8 +3,9 @@ spring:
     name: document-db-poc-kotlin
   data:
     mongodb:
+      uri: mongodb://localhost:27017/catalog
       host: localhost
       port: 27017
       database: catalog
-      username: root
-      password: example
+#      username: root
+#      password: example
