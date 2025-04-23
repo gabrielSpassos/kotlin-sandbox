@@ -10,6 +10,7 @@
 
 - Fully managed, scalable, and highly available document database service
 - DocumentDB is designed to be compatible with MongoDB
+- O Amazon DocumentDB é compatível com o MongoDB 3.6, 4.0 e 5.0.
 
 1. What is a document database?
    - common way of data model in normalized rows and columns
@@ -19,3 +20,5 @@
    - ![json-document.png](diagrams/json-document.png)
    - Both represent same data model using different structures
    - Pro: flexible schema 
+
+2. How it works?
