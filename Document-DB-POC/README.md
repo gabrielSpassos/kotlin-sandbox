@@ -22,3 +22,17 @@
    - Pro: flexible schema 
 
 2. How it works?
+   - create a cluster
+      - two components
+         - cluster volume
+            - manage data to instances
+            - An Amazon DocumentDB cluster volume is a virtual database storage volume that spans multiple Availability Zones.
+               - each AZ has a copy of the data
+            - can have 0 to 16 instances
+         - instances
+            - cluster is 0 or n database instances
+            - processing power for the database
+            - writes data to, reads data from the cluster storage volume
+            - instances type:
+               - primary instance
+               - replica instance
