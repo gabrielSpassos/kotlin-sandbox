@@ -33,6 +33,23 @@
             - cluster is 0 or n database instances
             - processing power for the database
             - writes data to, reads data from the cluster storage volume
+            - Cluster instances do not need to be of the same instance class, and they can be provisioned and terminated as desired.
             - instances type:
                - primary instance
+                  - each AWS DocumentDB cluster has one primary instance
+                  - support read and writes
+                  - perform all data modifications to cluster volume
                - replica instance
+                  - support only read 
+                  - each AWS DocumentDB can have up to 15 instances 
+                  - enables distribute read workload
+                  - May enable Multi AZ Availability
+
+   - Replication
+      - Write operation to primary instance, the primary instance executes a durable write to the cluster volume
+      - After the primary instance replicates the state of the write (not the data) to each ACTIVE replica
+         - Read replicas does NOT participate on the write process
+            - downside for read scaling
+            - Reads from Amazon DocumentDB replicas are eventually consistent with minimal replica lag—usually less than 100 milliseconds after the primary instance writes the data
+
+            
