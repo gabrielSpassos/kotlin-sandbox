@@ -7,7 +7,7 @@ class TextJustificationTest {
     @Test
     fun example1() {
         val textJustification = TextJustification()
-        val words = listOf("This", "is", "an", "example", "of", "text")
+        val words = listOf("This", "is", "an", "example", "of", "text", "justification.")
         val maxWidth = 16
         val expected = listOf(
             "This    is    an",
