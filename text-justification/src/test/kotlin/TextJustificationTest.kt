@@ -56,4 +56,24 @@ class TextJustificationTest {
 
         assertEquals(expected, result)
     }
+
+    @Test
+    fun shouldReturn8() {
+        val words = listOf("This", "is", "an")
+        val textJustification = TextJustification()
+
+        val result = textJustification.sumCharsOfList(words)
+
+        assertEquals(8, result)
+    }
+
+    @Test
+    fun shouldReturn15() {
+        val words = listOf("Science", "is", "what", "we")
+        val textJustification = TextJustification()
+
+        val result = textJustification.sumCharsOfList(words)
+
+        assertEquals(15, result)
+    }
 }

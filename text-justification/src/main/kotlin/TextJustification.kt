@@ -9,15 +9,16 @@ class TextJustification {
 
         for (word in words) {
             if (lineBuffer + word.length + 1 > maxWidth) {
-                val wordsInLine = line.size
-                val missingSpaces = (maxWidth - lineBuffer) % wordsInLine
-                val spaces = createSpaces(missingSpaces)
-                println("Missing spaces $missingSpaces: $spaces")
+                val separationBetweenWords = line.size - 1
+                val missingSpaces = (maxWidth - sumCharsOfList(line))
+                val evenSpaces = missingSpaces / separationBetweenWords
+                val spaces = createSpaces(evenSpaces)
+                println("Missing spaces $missingSpaces even $evenSpaces: $spaces")
                 lines.add(line.joinToString(spaces).trimEnd())
                 line.clear()
                 lineBuffer = 0
                 line.add(word)
-                lineBuffer += (word.length + 1)
+                lineBuffer += (word.length)
             } else {
                 line.add(word)
                 lineBuffer += (word.length + 1)
@@ -27,6 +28,10 @@ class TextJustification {
         lines.add(line.joinToString(" ").trimEnd())
 
         return lines
+    }
+
+    fun sumCharsOfList(words: List<String>): Int {
+        return words.joinToString(separator = "").length
     }
 
     private fun createSpaces(times: Int): String {
