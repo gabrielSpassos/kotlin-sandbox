@@ -9,9 +9,10 @@ class TextJustification {
 
         for (word in words) {
             if (lineBuffer + word.length + 1 > maxWidth) {
-                val separationBetweenWords = line.size - 1
+                val separationBetweenWords = if (1 == line.size) { 1 } else { line.size - 1 }
                 val missingSpaces = (maxWidth - sumCharsOfList(line))
                 val evenSpaces = missingSpaces / separationBetweenWords
+                // issue is with the even spaces
                 val spaces = createSpaces(evenSpaces)
                 println("Missing spaces $missingSpaces even $evenSpaces: $spaces")
                 lines.add(line.joinToString(spaces).trimEnd())

@@ -64,7 +64,7 @@ class TextJustificationTest {
 
         val result = textJustification.sumCharsOfList(words)
 
-        assertEquals(8, result)
+        assertEquals(8, result )
     }
 
     @Test
