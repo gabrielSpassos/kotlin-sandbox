@@ -51,5 +51,24 @@
          - Read replicas does NOT participate on the write process
             - downside for read scaling
             - Reads from Amazon DocumentDB replicas are eventually consistent with minimal replica lag—usually less than 100 milliseconds after the primary instance writes the data
+      - Amazon DocumentDB replicas are also failover targets and are quickly promoted if the primary instance for your Amazon DocumentDB cluster fails.
 
-            
+   - Storage
+      - data is stored in cluster volume
+         - single, virtual volume that uses SSDs
+      - cluster volume
+         - consists of six copies of your data
+         - data is automatically replicated across multiple Availability Zones (AZ) in single AWS Region
+         - Replication helps ensure high durability, less possibility of data loss, also higher availability during failover because data already exist in other AZ, since these copies could continue to serve data to instances of the AWS DocumentDB
+      
+      - How is billed?
+         - charged for the space that you use in an Amazon DocumentDB cluster volume
+            - Amazon DocumentDB 4.0, when data is removed (drop collection, index, database) the overall allocated space decreases
+            - Amazon DocumentDB 3.6 even if you remove data the volume itseft does not decrease, you only freed up space on the volume
+               -  costs are based on the storage "high water mark" (the maximum amount that was allocated for the Amazon DocumentDB cluster at any point in time).
+   
+   - Reliability 
+      - https://docs.aws.amazon.com/documentdb/latest/developerguide/how-it-works.html#how-it-works.reliability
+      - designed to be reliable, durable and fault tolerant
+      - storage auto-repair
+         - 
