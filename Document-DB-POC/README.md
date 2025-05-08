@@ -71,4 +71,14 @@
       - https://docs.aws.amazon.com/documentdb/latest/developerguide/how-it-works.html#how-it-works.reliability
       - designed to be reliable, durable and fault tolerant
       - storage auto-repair
-         - 
+         - Since we have copies of the data in multiple AZ's, this reduce the change of data loss by storage failure.
+         - When a segment of cluster volume fails, it uses the data from other volumes that make up the cluster to ensure the the data repaired is correct
+            - reducing the need to perform a point-in-time restore to recover from an instance failure.
+      - Survivable cache warming
+         - The page cache is manages in a separate process from the database so that the page cache can survive independently of the database.
+         - If occour an database failure the cache remains in memory
+            - the buffer pool is warmed when the database restart
+      - Crash Recovery
+         - After crash the AWS Document DB will perform crash recovery async in parallel threads
+      - Resource governance 
+         - when an instance is experiencing high memory pressure, the requests will be throttle. Some operations may be queued to wait for memory pressure to subside. If the memory pressure continues, the queue operations may suffer timeouts.
