@@ -82,3 +82,12 @@
          - After crash the AWS Document DB will perform crash recovery async in parallel threads
       - Resource governance 
          - when an instance is experiencing high memory pressure, the requests will be throttle. Some operations may be queued to wait for memory pressure to subside. If the memory pressure continues, the queue operations may suffer timeouts.
+      
+   - Read preference options
+      - Amazon DocumentDB does not rely on replicating data to multiple instances to achieve durability.
+      - The cluster data is durable with 1 or 15 instances
+      - Write durability
+         - Amazon DocumentDB uses a unique, distributed, fault-tolerant, self-healing storage system.
+         - When writing, the database ensures that all writes are durably recorded on majority of nodes before ack the write to the client.
+         - An acknowledged write from an Amazon DocumentDB primary instance is durable, and can't be rolled back
+      - Read Isolation
