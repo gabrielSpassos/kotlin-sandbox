@@ -97,5 +97,37 @@
          - read consistency 
             - read from primary instance are strongly consistent under normal operation conditions and have read-after-write consistency 
                (is the ability to view changes (read data) right after making those changes (write data))
-            - if a failover event happens between the write and the following read
+            - if a failover event happens between the write and the following read, DocumentDB returns a not strongly consistent read, all the read replicas are eventually consistent.
+      - Amazon DocumentDB read preferences
+         - supports to read preference only when reading data from cluster endpoint in replica set mode
+            - replica set mode:
+               - The reader endpoint load balances read-only connections across all available replicas in your cluster.
+            - if the connection is not on replica set mode, then the preference is ignored
+         - read preference option affects how driver routes read request to instance of Amazon DocumentDB cluster
+         - set preference on general level or specific query
+         - supported read preferences:
+            - primary
+               - all read are routed to primary instance
+               - if primary is unavailable, read fails
+               - read-after-write consistency over high availability and read scaling
+            - primaryPreferred
+               - on normal conditions read is routed to primary instance
+               - if has a primary failover, the client routes to a replica.
+               - on normal operation we have the read-after-write consistency and on failover scenario a eventual consistentency
+               - read-after-write consistency over read scaling, but still require high availability.
+            - secondary
+               - reads are only routed to a replica, never the primary
+               - no replica instance on cluster, read fails
+               - eventual consistency 
+               - prioritize primary instance write throughput over high availability and read-after-write consistency.
+            - secondaryPreferred
+               - read are routed to read replica when one or more replicas are active.
+               - when has none read replica routes read to primary
+               - still eventual consistency when we use a read replica
+               - prioritize read scaling and high availability over read-after-write consistency.
+            - nearest
+               - read is routed based only on latency measure between client and all instances in the cluster.
+               - eventual consistency when routes to read replica
+               - read-after-write consistency when routes to primary
+               - prioritize achieving the lowest possible read latency and high availability over read-after-write consistency and read scaling.
             
