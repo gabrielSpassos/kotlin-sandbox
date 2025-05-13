@@ -91,3 +91,11 @@
          - When writing, the database ensures that all writes are durably recorded on majority of nodes before ack the write to the client.
          - An acknowledged write from an Amazon DocumentDB primary instance is durable, and can't be rolled back
       - Read Isolation
+         - reads only return data already durable before the query begins
+         - read never return data modified after the query begins
+         - no dirty read
+         - read consistency 
+            - read from primary instance are strongly consistent under normal operation conditions and have read-after-write consistency 
+               (is the ability to view changes (read data) right after making those changes (write data))
+            - if a failover event happens between the write and the following read
+            
