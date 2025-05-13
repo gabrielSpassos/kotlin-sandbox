@@ -130,4 +130,12 @@
                - eventual consistency when routes to read replica
                - read-after-write consistency when routes to primary
                - prioritize achieving the lowest possible read latency and high availability over read-after-write consistency and read scaling.
-            
+         - High availability
+            - When the primary instance fail, an replica will be promoted as new primary
+               - Meanwhile the write and read requests to the primary will fail
+               - If the cluster does not have replicas the primary will be recreated
+                  - but this is slower than promote a replica to primary
+               - Replicas that are inteded to use as failover should have the same instance class as the primary one
+         - Scaling reads
+            - Data replication happens within the cluster volume and not between instances.
+            - each replica’s resources are dedicated to processing your queries, not replicating and writing data.
