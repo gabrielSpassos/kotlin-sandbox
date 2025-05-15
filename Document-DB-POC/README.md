@@ -139,3 +139,72 @@
          - Scaling reads
             - Data replication happens within the cluster volume and not between instances.
             - each replica’s resources are dedicated to processing your queries, not replicating and writing data.
+   - Transactions
+      - Amazon DocumentDB (with MongoDB compatibility) now supports MongoDB 4.0 compatibility including transactions.
+      - Transactions enables atomic, consistent, isolated, and durable (ACID) operations across one or more documents within an Amazon DocumentDB cluster
+      - There is no additional cost for transactions.
+      - Must use AWS Document DB 4.0 Engine and use MongoDB driver 4.0 or greater
+
+      - Limitations:
+         - Amazon DocumentDB does not support cursors within a transaction.
+         - No support to retryable write, commit, abort
+         - transactions have 1min execution limit and sessions has 30min timeouts
+      
+      - Transaction isolation level:
+         - when we start a transaction we can specify `readConcern` and `writeConcern`
+            - readConcern
+               - snapshot isolation by default
+            - writeConcern
+               - majority by default
+               - write quorum is achieved when four copies of the data are persisted across three AZs
+      
+      - Use cases:
+         - multi-statement:
+            - write a transaction that spans multiple statements with an explicit commit or rollback
+            - group insert, update, delete, and findAndModify actions as a single atomic operation.
+
+            ```mongodb
+            var session = db.getMongo().startSession({causalConsistency: false});   
+            var bankDB = session.getDatabase("bank");
+            var accountCollection = bankDB["account"];
+
+            session.startTransaction();
+
+            // deduct $500 from Alice's account
+            var aliceBalance = accountColl.find({"name": "Alice"}).next().balance;
+            var newAliceBalance = aliceBalance - amountToTransfer;
+            accountColl.update({"name": "Alice"},{"$set": {"balance": newAliceBalance}});
+
+            // add $500 to Bob's account
+            var bobBalance = accountColl.find({"name": "Bob"}).next().balance;
+            var newBobBalance = bobBalance + amountToTransfer;
+            accountColl.update({"name": "Bob"},{"$set": {"balance": newBobBalance}});
+
+            session.commitTransaction();
+            ```
+
+         - multi-collection: 
+            - perform multiple operations within a single transaction and across multiple collections.
+            
+            ```mongodb
+            var session = db.getMongo().startSession({causalConsistency: false});   
+            var accountCollInBankA = session.getDatabase("bankA")["account"];
+            var accountCollInBankB = session.getDatabase("bankB")["account"];
+
+            session.startTransaction();
+
+            // deduct $500 from Alice's account
+            var aliceBalance = accountCollInBankA.find({"name": "Alice"}).next().balance;
+            var newAliceBalance = aliceBalance - amountToTransfer;
+            accountCollInBankA.update({"name": "Alice"},{"$set": {"balance": newAliceBalance}});
+
+            // add $500 to Bob's account
+            var bobBalance = accountCollInBankB.find({"name": "Bob"}).next().balance;
+            var newBobBalance = bobBalance + amountToTransfer;
+            accountCollInBankB.update({"name": "Bob"},{"$set": {"balance": newBobBalance}});
+
+            session.commitTransaction();
+            ```
+
+
+            
