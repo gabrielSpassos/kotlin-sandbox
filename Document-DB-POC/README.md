@@ -205,6 +205,27 @@
 
             session.commitTransaction();
             ```
+   
+   - Amazon DocumentDB elastic cluster sharding
+      - Amazon DocumentDB elastic clusters use hash-based sharding to partition data across a distributed storage system.
+      - Sharding, also known as partitioning, splits large data sets into small data sets across multiple nodes enabling you to scale out your database beyond vertical scaling limits
+      - AWS Document DB decouples compute from storage, allowing scale independently of each other
 
+      - Shard definitions
+         - Shard
+            - A shard provides compute for an elastic cluster.
+            - Single writer instance and 0-15 read replicas
+            - By default, a shard will have two instances: a writer and a single read replica.
+         - Shard Key
+            - Required field on JSON document in shared collections that elastic cluster uses to distribute read and write to matching shard
+         - Sharded collection
+            - Collection whose data is distributed across an elastic cluster in data partitions
+         - Partition
+            - Logical portion of shared data
+            - When shared collection is created, the data is organized into partitions inside each shard basead on the shard key
+
+      - Distributing data across configured shards
+         [image]()
+         -  A good shard key will evenly partition your data across the underlying shards, giving your workload the best throughput and performance. 
 
             
