@@ -225,7 +225,7 @@
             - When shared collection is created, the data is organized into partitions inside each shard basead on the shard key
 
       - Distributing data across configured shards
-         [image]()
+         [image](https://github.com/gabrielSpassos/kotlin-sandbox/blob/main/Document-DB-POC/resources/sharding-detail-1.png)
          -  A good shard key will evenly partition your data across the underlying shards, giving your workload the best throughput and performance. 
 
             
