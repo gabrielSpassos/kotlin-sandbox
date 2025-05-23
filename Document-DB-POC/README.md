@@ -208,7 +208,8 @@
    
    - Amazon DocumentDB elastic cluster sharding
       - Amazon DocumentDB elastic clusters use hash-based sharding to partition data across a distributed storage system.
-      - Sharding, also known as partitioning, splits large data sets into small data sets across multiple nodes enabling you to scale out your database beyond vertical scaling limits
+        - Algorithm: hash function transforms the shard key into hash and uses this hash to partition the data across 
+       - Sharding, also known as partitioning, splits large data sets into small data sets across multiple nodes enabling you to scale out your database beyond vertical scaling limits
       - AWS Document DB decouples compute from storage, allowing scale independently of each other
 
       - Shard definitions
@@ -228,4 +229,4 @@
          - ![sharding-detail-1.png](resources/sharding-detail-1.png)
          - A good shard key will evenly partition your data across the underlying shards, giving your workload the best throughput and performance. 
 
-            
+      - ![sharding.png](diagrams/sharding.png)
