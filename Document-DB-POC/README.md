@@ -230,3 +230,6 @@
          - A good shard key will evenly partition your data across the underlying shards, giving your workload the best throughput and performance. 
 
       - ![sharding.png](diagrams/sharding.png)
+      
+      - Amazon DocumentDB data is stored in a cluster volume, which is a single, virtual volume that uses solid state drives (SSDs). A cluster volume consists of six copies of your data, which are replicated automatically across multiple Availability Zones in a single AWS Region.
+      - ![elastic-cluster.png](diagrams/elastic-cluster.png)
