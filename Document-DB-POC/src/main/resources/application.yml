@@ -3,7 +3,7 @@ spring:
     name: document-db-poc-kotlin
   data:
     mongodb:
-      uri: mongodb://localhost:27017/catalog
+      uri: mongodb://documentdbpoc:<password>@docdb-2025-06-01-21-23-39.cluster-cgty5tmgz0og.us-east-1.docdb.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
       host: localhost
       port: 27017
       database: catalog

@@ -21,16 +21,15 @@
     - Reads from Amazon DocumentDB replicas are eventually consistent after the primary instance writes the data
       - read replica lag—usually less than 100 milliseconds
 
-4. Storage
+    
+5. Storage And Amazon DocumentDB Elastic Cluster sharding 
    - data is stored in cluster volume
         - single, virtual volume that uses SSDs
    - cluster volume
-       - consists of six copies of your data
-       - data is automatically replicated across multiple Availability Zones (AZ) in single AWS Region
-       - Replication helps ensure high durability, less possibility of data loss, also higher availability during
-     failover because data already exist in other AZ, since these copies could continue to serve data to instances of the AWS DocumentDB
-
-5. Amazon DocumentDB elastic cluster sharding
+     - consists of six copies of your data
+     - data is automatically replicated across multiple Availability Zones (AZ) in single AWS Region
+     - Replication helps ensure high durability, less possibility of data loss, also higher availability during
+       failover because data already exist in other AZ, since these copies could continue to serve data to instances of the AWS DocumentDB
    - Amazon DocumentDB elastic clusters use hash-based sharding to partition data across a distributed storage system.
      - Algorithm: hash function transforms the shard key into hash and uses this hash to partition the data across 
      - Sharding: also known as partitioning, splits large data sets into small data sets across multiple nodes 

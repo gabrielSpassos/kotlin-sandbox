@@ -52,7 +52,7 @@ class ProductControllerIntegrationTest {
     }
 
     @Test
-    fun shouldGetProducts() {
+    fun shouldGetProductByName() {
         val httpClient = HttpClient.newHttpClient()
         val request = HttpRequest.newBuilder()
             .uri(URI.create("http://localhost:8080/v1/products/Product-1"))
