@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/v1/products")
 class ProductController @Autowired constructor(private val productService: ProductService) {
 
-    @PostMapping("")
+    @PostMapping
     fun createProduct(@RequestBody productRequest: ProductRequest): ResponseEntity<ProductEntity> {
         val savedProductEntity = productService.save(productRequest)
         return ResponseEntity.ok().body(savedProductEntity)
     }
 
-    @GetMapping("/product/{name}")
+    @GetMapping("/{name}")
     fun findByName(@PathVariable name: String): ResponseEntity<ProductEntity> {
         val productEntity = productService.findByName(name)
         return productEntity.map { ResponseEntity.ok().body(it) }

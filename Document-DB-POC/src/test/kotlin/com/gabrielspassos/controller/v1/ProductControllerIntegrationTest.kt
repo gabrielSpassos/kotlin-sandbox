@@ -33,4 +33,38 @@ class ProductControllerIntegrationTest {
         assertEquals(200, response.statusCode())
         assertNotNull(response.body())
     }
+
+    @Test
+    fun shouldGetProducts() {
+        val httpClient = HttpClient.newHttpClient()
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8080/v1/products"))
+            .GET()
+            .header("Content-Type", "application/json")
+            .build()
+        val response = httpClient.send(
+            request,
+            HttpResponse.BodyHandlers.ofString()
+        )
+
+        assertEquals(200, response.statusCode())
+        assertNotNull(response.body())
+    }
+
+    @Test
+    fun shouldGetProducts() {
+        val httpClient = HttpClient.newHttpClient()
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8080/v1/products/Product-1"))
+            .GET()
+            .header("Content-Type", "application/json")
+            .build()
+        val response = httpClient.send(
+            request,
+            HttpResponse.BodyHandlers.ofString()
+        )
+
+        assertEquals(200, response.statusCode())
+        assertNotNull(response.body())
+    }
 }
