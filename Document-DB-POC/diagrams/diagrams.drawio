@@ -649,10 +649,10 @@
         <mxCell id="yYoxZd4qhi7C2YkW-VUM-110" value="Primary Instance" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="4wMxnnf3ojqynohw2tQE-1">
           <mxGeometry x="1018" y="-15" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="yYoxZd4qhi7C2YkW-VUM-111" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0;exitDx=20;exitDy=80;exitPerimeter=0;entryX=0.33;entryY=0.008;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="4wMxnnf3ojqynohw2tQE-1" source="yYoxZd4qhi7C2YkW-VUM-108">
+        <mxCell id="yYoxZd4qhi7C2YkW-VUM-111" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0;exitDx=20;exitDy=80;exitPerimeter=0;" edge="1" parent="4wMxnnf3ojqynohw2tQE-1" source="yYoxZd4qhi7C2YkW-VUM-108">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1028" y="390" as="sourcePoint" />
-            <mxPoint x="1043" y="131" as="targetPoint" />
+            <mxPoint x="1043" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="yYoxZd4qhi7C2YkW-VUM-112" value="Writes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="yYoxZd4qhi7C2YkW-VUM-111">
