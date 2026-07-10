@@ -1,3 +1,7 @@
 spring:
   application:
     name: testcontainers-mockserver
+
+exchange:
+  api:
+    url: https://cdn.jsdelivr.net
