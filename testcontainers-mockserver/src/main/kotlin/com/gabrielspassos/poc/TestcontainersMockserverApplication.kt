@@ -1,4 +1,4 @@
-package com.gabrielspassos.testcontainers_mockserver
+package com.gabrielspassos.poc
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

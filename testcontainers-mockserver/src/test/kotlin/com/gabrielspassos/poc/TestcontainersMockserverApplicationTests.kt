@@ -1,4 +1,4 @@
-package com.gabrielspassos.testcontainers_mockserver
+package com.gabrielspassos.poc
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
