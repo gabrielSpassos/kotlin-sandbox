@@ -68,7 +68,7 @@ class ExchangeClientIntegrationTest {
 
         @Bean
         @Primary
-        fun exchangeRestClient(builder: RestClient.Builder, mockServerContainer: MockServerContainer): RestClient {
+        fun mockExchangeRestClient(builder: RestClient.Builder, mockServerContainer: MockServerContainer): RestClient {
             return builder
                 .baseUrl(mockServerContainer.endpoint)
                 .build()
