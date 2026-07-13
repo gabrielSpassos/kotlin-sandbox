@@ -31,7 +31,7 @@ class KafkaIntegrationTest {
         val userEventToProduce = UserEvent(
             id = UUID.randomUUID().toString(),
             usdRate = BigDecimal(1.5),
-            rateDateTime = LocalDateTime.now(),
+            rateDateTime = LocalDateTime.now().toString(),
         )
         val topic = "user-event-topic"
 
