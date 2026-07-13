@@ -32,7 +32,7 @@ class KafkaConsumerConfig {
         )
     }
 
-    @Bean
+    @Bean(name = ["kafkaListenerContainerFactory"])
     fun kafkaListenerContainerFactory(
         consumerFactory: ConsumerFactory<String, UserEvent>
     ): ConcurrentKafkaListenerContainerFactory<String, UserEvent> {

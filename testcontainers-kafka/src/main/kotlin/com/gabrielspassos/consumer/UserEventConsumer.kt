@@ -14,7 +14,10 @@ class UserEventConsumer {
 
     private val lastReceivedMessage = AtomicReference<UserEvent?>()
 
-    @KafkaListener(topics = ["user-event-topic"], groupId = "testcontainers-kafka-group")
+    @KafkaListener(
+        topics = ["user-event-topic"],
+        groupId = "testcontainers-kafka-group",
+    )
     fun consumeUserEvent(userEvent: UserEvent): UserEvent {
         log.info("Received user event message: $userEvent")
         lastReceivedMessage.set(userEvent)
