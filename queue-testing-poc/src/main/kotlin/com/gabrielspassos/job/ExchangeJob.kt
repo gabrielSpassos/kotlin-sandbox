@@ -13,7 +13,7 @@ class ExchangeJob(private val batchService: BatchService){
 
     private val logger: Log = LogFactory.getLog(javaClass)
 
-    @Scheduled(fixedDelay = 6000)
+    @Scheduled(fixedDelay = 60000)
     fun runExchangeJob() {
         logger.info("Exchange job executed")
         batchService.processExchangeJob(testInductionId = null)
