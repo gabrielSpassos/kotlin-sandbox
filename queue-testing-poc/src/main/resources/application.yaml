@@ -17,7 +17,7 @@ spring:
             trusted:
               packages: com.gabrielspassos.*
             type:
-              mapping: userEvent:com.gabrielspassos.event.UserEvent
+              mapping: exchangeEvent:com.gabrielspassos.event.ExchangeEvent
 
 exchange:
   api:

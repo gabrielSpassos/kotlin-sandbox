@@ -1,8 +1,8 @@
 package com.gabrielspassos
 
-import com.gabrielspassos.consumer.UserEventConsumer
-import com.gabrielspassos.event.UserEvent
-import com.gabrielspassos.producer.UserEventProducer
+import com.gabrielspassos.consumer.ExchangeConsumer
+import com.gabrielspassos.event.ExchangeEvent
+import com.gabrielspassos.producer.ExchangeProducer
 import org.awaitility.Awaitility.await
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -21,21 +21,20 @@ import kotlin.test.assertEquals
 class KafkaIntegrationTest {
 
     @Autowired
-    private lateinit var producer: UserEventProducer
+    private lateinit var producer: ExchangeProducer
 
     @Autowired
-    private lateinit var consumer: UserEventConsumer
+    private lateinit var consumer: ExchangeConsumer
 
     @Test
     fun shouldSendUserEventToKafka() {
-        val userEventToProduce = UserEvent(
+        val exchangeToProduce = ExchangeEvent(
             id = UUID.randomUUID().toString(),
             usdRate = BigDecimal(1.5),
             rateDateTime = LocalDateTime.now().toString(),
         )
-        val topic = "user-event-topic"
 
-        val produceResult = producer.sendMessage(topic, userEventToProduce)
+        val produceResult = producer.sendMessage(exchangeToProduce)
 
         assertTrue { produceResult }
 
@@ -44,7 +43,7 @@ class KafkaIntegrationTest {
             .pollInterval(Duration.ofMillis(500))
             .untilAsserted {
                 val received = consumer.getLastReceivedMessage()
-                assertEquals(userEventToProduce, received)
+                assertEquals(exchangeToProduce, received)
             }
     }
 
