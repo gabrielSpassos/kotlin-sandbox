@@ -1,0 +1,5 @@
+# Enable auto-env through the sdkman_auto_env config
+# Add key=value pairs of SDKs to use below
+java=26.0.1-amzn
+kotlin=2.4.0
+maven=3.9.16
