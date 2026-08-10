@@ -55,7 +55,7 @@ class ExchangeClientIntegrationTest {
 
     @Test
     fun shouldFetchExchangeRates() {
-        val response = exchangeClient.usdToBrl
+        val response = exchangeClient.fetchUsdExchange
 
         assertNotNull(response)
         assertEquals("2026-07-08", response.date)

@@ -4,6 +4,6 @@ import java.math.BigDecimal
 
 data class ExchangeEvent(
     val id: String? = null,
-    val usdRate: BigDecimal? = null,
+    val usdToBrlRate: BigDecimal? = null,
     val rateDateTime: String? = null
 )

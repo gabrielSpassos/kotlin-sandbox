@@ -10,7 +10,7 @@ import java.math.BigDecimal
 @Component
 class ExchangeClient(private val restClient: RestClient) {
 
-    val usdToBrl: UsdResponse?
+    val fetchUsdExchange: UsdResponse?
         get() {
             try {
                 val response: UsdResponse? = restClient.get()

@@ -13,7 +13,7 @@ class ExchangeClientE2ETest {
 
     @Test
     fun shouldFetchExchangeRates() {
-        val response = exchangeClient.usdToBrl
+        val response = exchangeClient.fetchUsdExchange
 
         assertNotNull(response)
         assertNotNull(response.date)
