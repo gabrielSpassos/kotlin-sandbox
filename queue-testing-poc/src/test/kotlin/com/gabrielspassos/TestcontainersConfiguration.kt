@@ -3,10 +3,14 @@ package com.gabrielspassos
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.context.annotation.Bean
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.kafka.KafkaContainer
 import org.testcontainers.mockserver.MockServerContainer
+import org.testcontainers.postgresql.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
+import java.util.function.Supplier
 
 @Testcontainers
 @TestConfiguration(proxyBeanMethods = false)
@@ -23,6 +27,16 @@ class TestcontainersConfiguration {
 		val container = MockServerContainer(DockerImageName.parse("mockserver/mockserver:7.4.0"))
 		container.start()
 		return container
+	}
+
+	@Bean
+	@ServiceConnection
+	fun postgresSqlContainer(): PostgreSQLContainer {
+		return PostgreSQLContainer(DockerImageName.parse("postgres:18-alpine"))
+			.withDatabaseName("queue-testing")
+			.withUsername("user")
+			.withPassword("pass")
+			.withInitScript("schema.sql")
 	}
 
 }
