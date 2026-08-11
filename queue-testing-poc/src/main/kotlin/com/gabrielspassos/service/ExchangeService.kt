@@ -3,30 +3,34 @@ package com.gabrielspassos.service
 import com.gabrielspassos.client.ExchangeClient
 import com.gabrielspassos.event.ExchangeEvent
 import com.gabrielspassos.producer.ExchangeProducer
-import org.springframework.kafka.core.KafkaTemplate
+import com.gabrielspassos.repository.ExchangeRepository
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
-import java.util.Objects
-import java.util.UUID
+import java.util.*
 
 @Service
 class ExchangeService(
+    private val exchangeRepository: ExchangeRepository,
+    private val userService: UserService,
     private val producer: ExchangeProducer,
     private val exchangeClient: ExchangeClient) {
 
     fun processExchangeJob(testInductionId: String? = null): Boolean {
+        val users = userService.findEligibleUserForExchangeJob()
+
+        if (users.isEmpty()) { return false }
+
         val usdResponse = exchangeClient.fetchUsdExchange
 
-        if (Objects.isNull(usdResponse)) {
-            return false
-        }
+        if (Objects.isNull(usdResponse)) { return false }
 
-        val exchangeEvent = ExchangeEvent(
-            id = testInductionId ?: UUID.randomUUID().toString(),
+        users.map { user -> ExchangeEvent(
+            id = UUID.randomUUID().toString(),
+            userId = user.id,
             usdToBrlRate = usdResponse?.usd?.brl,
             rateDateTime = usdResponse?.date,
-        )
+        ) }.forEach { exchangeEvent -> producer.sendMessage(exchangeEvent, testInductionId) }
 
-        return producer.sendMessage(exchangeEvent)
+        return true
     }
+    
 }

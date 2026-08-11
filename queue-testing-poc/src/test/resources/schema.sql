@@ -6,7 +6,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE reports (
+CREATE TABLE exchanges (
    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
    user_id UUID NOT NULL,
    usd_to_brl_exchange_rate NUMERIC(10, 2) NOT NULL,

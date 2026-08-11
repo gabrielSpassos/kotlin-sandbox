@@ -7,8 +7,8 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.UUID
 
-@Table(name = "reports")
-class ReportEntity(
+@Table(name = "exchanges")
+class ExchangeEntity(
 
     @Id
     @Column("id")
