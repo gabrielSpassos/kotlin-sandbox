@@ -28,4 +28,21 @@ class ExchangeEntity(
 
     @Column("updated_at")
     val updatedAt: LocalDateTime = LocalDateTime.now(),
-)
+) {
+    fun copy(id: UUID? = this.id,
+             userId: UUID = this.userId,
+             usdToBrlExchangeRate: BigDecimal = this.usdToBrlExchangeRate,
+             rateDateTime: LocalDateTime = this.rateDateTime,
+             createdAt: LocalDateTime = this.createdAt,
+             updatedAt: LocalDateTime = this.updatedAt,
+             ): ExchangeEntity {
+        return ExchangeEntity(
+            id = id,
+            userId = userId,
+            usdToBrlExchangeRate = usdToBrlExchangeRate,
+            rateDateTime = rateDateTime,
+            createdAt = createdAt,
+            updatedAt = updatedAt,
+        )
+    }
+}
