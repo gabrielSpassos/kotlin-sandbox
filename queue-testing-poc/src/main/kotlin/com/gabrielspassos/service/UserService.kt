@@ -24,11 +24,11 @@ class UserService (private val userRepository: UserRepository) {
             .findByStatusAndUpdatedAtOlderThan(status = UserStatus.INACTIVE.name, thresholdDate = sevenDaysAgoAtMidnight)
     }
 
-    fun save(user: UserEntity): UserEntity {
+    fun saveUser(user: UserEntity): UserEntity {
         return userRepository.save(user)
     }
 
-    internal fun delete(user: UserEntity): Boolean {
+    internal fun deleteUser(user: UserEntity): Boolean {
         userRepository.delete(user)
         return true
     }

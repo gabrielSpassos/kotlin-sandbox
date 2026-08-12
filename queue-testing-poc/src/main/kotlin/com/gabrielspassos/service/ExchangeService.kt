@@ -36,7 +36,7 @@ class ExchangeService(
         return true
     }
 
-    fun saveExchange(exchangeEvent: ExchangeEvent) {
+    fun saveExchange(exchangeEvent: ExchangeEvent): ExchangeEntity {
         val alreadyExistingExchangeEntity = exchangeEvent.userId
                 ?.let { userId -> exchangeRepository.findByUserId(userId) }
                 ?.getOrNull()
@@ -55,6 +55,11 @@ class ExchangeService(
             )
         }
 
-        exchangeRepository.save(exchangeEntityToSave)
+        return exchangeRepository.save(exchangeEntityToSave)
+    }
+
+    internal fun deleteExchange(exchangeEntity: ExchangeEntity): Boolean {
+        exchangeRepository.delete(exchangeEntity)
+        return true
     }
 }

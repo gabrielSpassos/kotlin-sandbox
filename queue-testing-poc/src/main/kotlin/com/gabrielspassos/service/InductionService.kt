@@ -2,6 +2,7 @@ package com.gabrielspassos.service
 
 import com.gabrielspassos.entity.UserEntity
 import com.gabrielspassos.entity.UserStatus
+import com.gabrielspassos.event.ExchangeEvent
 import com.gabrielspassos.service.UserService.Companion.EXCHANGE_JOB_DATE_THRESHOLD
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
@@ -13,7 +14,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 @Service
-class InductionBatchService(
+class InductionService(
     private val exchangeService: ExchangeService,
     private val userService: UserService) {
 
@@ -22,7 +23,7 @@ class InductionBatchService(
 
     fun processExchangeJob(testInductionId: String? = null): Boolean {
         if (testInductionId?.isNotBlank() == true) {
-            logger.info("testInductionId=$testInductionId")
+            logger.info("testInductionId=$testInductionId start processing exchange job")
 
             val today = LocalDate.now()
             val eightDaysAgo = today.minusDays(EXCHANGE_JOB_DATE_THRESHOLD + 1)
@@ -34,12 +35,26 @@ class InductionBatchService(
                 updatedAt = eightDaysAgoAtMidnight
             )
 
-            val userTestInduction = userService.save(userToSave)
+            val userTestInduction = userService.saveUser(userToSave)
             userMap[testInductionId] = userTestInduction
             logger.info("testInductionId=$testInductionId saved userId=${userTestInduction.id}")
         }
 
         return exchangeService.processExchangeJob(testInductionId = testInductionId)
+    }
+
+    fun processExchangeConsumerEvent(exchangeEvent: ExchangeEvent, testInductionId: String? = null): Boolean {
+        val exchangeEntity = exchangeService.saveExchange(exchangeEvent)
+
+        if (testInductionId?.isNotBlank() == true) {
+            logger.info("testInductionId=$testInductionId finished processing exchange consume event")
+            val user = userMap[testInductionId]
+            user?.let { userService.deleteUser(it) }
+            exchangeEntity.let { exchangeService.deleteExchange(it) }
+            logger.info("testInductionId=$testInductionId deleted userId=${user?.id} and exchangeId=${exchangeEntity.id}")
+        }
+
+        return true
     }
 
 }
