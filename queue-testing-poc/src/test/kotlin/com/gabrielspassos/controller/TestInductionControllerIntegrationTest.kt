@@ -10,7 +10,8 @@ import org.mockserver.client.MockServerClient
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.web.client.RestTemplate
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
@@ -24,8 +25,8 @@ import org.testcontainers.mockserver.MockServerContainer
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TestInductionControllerIntegrationTest {
 
-    @Autowired
-    lateinit var restTemplate: TestRestTemplate
+    @LocalServerPort
+    var port: Int = 0
 
     @Autowired
     lateinit var mockServerContainer: MockServerContainer
@@ -62,7 +63,8 @@ class TestInductionControllerIntegrationTest {
     fun shouldTriggerExchangeJobAndSaveUser() {
         val testId = "test-induction-trigger-exchange-job-it-test"
 
-        val response = restTemplate.postForEntity("/v1/test-induction/exchange-job?id=$testId", null, String::class.java)
+        val url = "http://localhost:$port/v1/test-induction/exchange-job?id=$testId"
+        val response = RestTemplate().postForEntity(url, null, String::class.java)
 
         assertEquals(HttpStatus.OK, response.statusCode)
 
