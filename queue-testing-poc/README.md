@@ -1,12 +1,22 @@
 # Queue Testing
 
+### Test Target
+
+![Job](diagrams/queue-testing-Job.png)
+
+### How to Test
+
+![Test](diagrams/queue-testing-Testing.png)
+
 ### Stack
 
 - Java 26
 - Kotlin 2.4.0
 - Maven
 - Spring Boot 4.1.0
-- Test Containers
+- Postgres 18
+- Apache Kafka
+- Test Containers Postgres
 - Test Containers Kafka
 - Test Containers Mock Server
 - Mock Server Client Java
