@@ -2,11 +2,11 @@
 
 ### Test Target
 
-![Job](diagrams/queue-testing-Job.png)
+![Job](diagrams/queue-testing-Job-light.png)
 
 ### How to Test
 
-![Test](diagrams/queue-testing-Testing.png)
+![Test](diagrams/queue-testing-Testing-light.png)
 
 ### Stack
 
