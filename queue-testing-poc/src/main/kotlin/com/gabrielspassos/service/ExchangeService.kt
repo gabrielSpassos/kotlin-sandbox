@@ -3,6 +3,7 @@ package com.gabrielspassos.service
 import com.gabrielspassos.client.ExchangeClient
 import com.gabrielspassos.entity.ExchangeEntity
 import com.gabrielspassos.event.ExchangeEvent
+import com.gabrielspassos.exception.BadRequestException
 import com.gabrielspassos.producer.ExchangeProducer
 import com.gabrielspassos.repository.ExchangeRepository
 import org.springframework.stereotype.Service
@@ -41,17 +42,20 @@ class ExchangeService(
                 ?.let { userId -> exchangeRepository.findByUserId(userId) }
                 ?.getOrNull()
 
-        //todo
+        if (exchangeEvent.usdToBrlRate == null || exchangeEvent.rateDateTime.isNullOrBlank()) {
+            throw BadRequestException("Invalid exchange event rate values", "INVALID_EXCHANGE_EVENT")
+        }
+
         val exchangeEntityToSave = if (alreadyExistingExchangeEntity != null) {
             alreadyExistingExchangeEntity.copy(
-                usdToBrlExchangeRate = exchangeEvent.usdToBrlRate!!,
-                rateDateTime = LocalDateTime.parse(exchangeEvent.rateDateTime!!))
+                usdToBrlExchangeRate = exchangeEvent.usdToBrlRate,
+                rateDateTime = LocalDateTime.parse(exchangeEvent.rateDateTime))
         } else {
             ExchangeEntity(
                 id = null,
                 userId = exchangeEvent.userId!!,
-                usdToBrlExchangeRate = exchangeEvent.usdToBrlRate!!,
-                rateDateTime = LocalDateTime.parse(exchangeEvent.rateDateTime!!),
+                usdToBrlExchangeRate = exchangeEvent.usdToBrlRate,
+                rateDateTime = LocalDateTime.parse(exchangeEvent.rateDateTime),
             )
         }
 
