@@ -25,8 +25,8 @@ class ExchangeConsumer(private val inductionService: InductionService) {
     ): ExchangeEvent {
         val testInductionIdValue = testInductionId?.let { String(it) }
         logger.info("Received exchange event message: $exchangeEvent, testInductionId=$testInductionIdValue")
-        lastReceivedMessage.set(exchangeEvent)
         inductionService.processExchangeConsumerEvent(exchangeEvent, testInductionIdValue)
+        lastReceivedMessage.set(exchangeEvent)
         return exchangeEvent
     }
 

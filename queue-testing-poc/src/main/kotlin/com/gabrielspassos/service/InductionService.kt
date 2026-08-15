@@ -1,5 +1,6 @@
 package com.gabrielspassos.service
 
+import com.gabrielspassos.controller.response.TestInductionExchangeJobResponse
 import com.gabrielspassos.entity.UserEntity
 import com.gabrielspassos.entity.UserStatus
 import com.gabrielspassos.event.ExchangeEvent
@@ -12,17 +13,21 @@ import org.apache.commons.logging.LogFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import org.springframework.core.env.Environment
+import java.util.Optional
 
 @Service
 class InductionService(
     private val exchangeService: ExchangeService,
-    private val userService: UserService) {
+    private val userService: UserService,
+    private val environment: Environment
+) {
 
     private val logger: Log = LogFactory.getLog(javaClass)
     private val userMap: ConcurrentMap<String, UserEntity> = ConcurrentHashMap()
 
-    fun processExchangeJob(testInductionId: String? = null): Boolean {
-        if (testInductionId?.isNotBlank() == true) {
+    fun processExchangeJob(testInductionId: String? = null): TestInductionExchangeJobResponse {
+        val userTestInduction = if (isTestInduction(testInductionId)) {
             logger.info("testInductionId=$testInductionId start processing exchange job")
 
             val today = LocalDate.now()
@@ -38,15 +43,23 @@ class InductionService(
             val userTestInduction = userService.saveUser(userToSave)
             userMap[testInductionId] = userTestInduction
             logger.info("testInductionId=$testInductionId saved userId=${userTestInduction.id}")
+            Optional.ofNullable(userTestInduction)
+        } else {
+            Optional.empty()
         }
 
-        return exchangeService.processExchangeJob(testInductionId = testInductionId)
+        exchangeService.processExchangeJob(testInductionId = testInductionId)
+
+        return TestInductionExchangeJobResponse(
+            userId = userTestInduction.map { it.id }.orElse(null),
+            username = userTestInduction.map { it.name }.orElse(null),
+        )
     }
 
     fun processExchangeConsumerEvent(exchangeEvent: ExchangeEvent, testInductionId: String? = null): Boolean {
         val exchangeEntity = exchangeService.saveExchange(exchangeEvent)
 
-        if (testInductionId?.isNotBlank() == true) {
+        if (isTestInduction(testInductionId)) {
             logger.info("testInductionId=$testInductionId finished processing exchange consume event")
             val user = userMap[testInductionId]
             user?.let { userService.deleteUser(it) }
@@ -55,6 +68,14 @@ class InductionService(
         }
 
         return true
+    }
+
+    private fun isTestInduction(testInductionId: String? = null): Boolean {
+        return isNotProdEnv() && testInductionId?.isNotBlank() == true
+    }
+
+    private fun isNotProdEnv(): Boolean {
+        return !environment.activeProfiles.contains("prod")
     }
 
 }
