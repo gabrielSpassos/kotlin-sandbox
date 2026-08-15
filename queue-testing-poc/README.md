@@ -8,6 +8,19 @@
 
 ![Test](diagrams/queue-testing-Testing-light.png)
 
+#### Pros
+
+- Ability to test whenever is wanted
+- Ability to test as many times is wanted
+- Test isolation
+- Remove flakiness
+- No leakage on production code components
+
+#### Cons
+
+- Higher Complexity
+- Production code "coupled" with testing code
+
 ### Stack
 
 - Java 26
