@@ -43,7 +43,7 @@ class ExchangeClientIntegrationTest {
                     .withBody(
                         """
                         {
-                          "date": "2026-07-08",
+                          "date": "2026-07-08T19:12:45",
                           "usd": {
                             "brl": 6.54
                           }
@@ -58,7 +58,7 @@ class ExchangeClientIntegrationTest {
         val response = exchangeClient.fetchUsdExchange
 
         assertNotNull(response)
-        assertEquals("2026-07-08", response.date)
+        assertEquals("2026-07-08T19:12:45", response.date)
         assertNotNull(response.usd)
         assertEquals(BigDecimal("6.54"), response.usd.brl)
     }
