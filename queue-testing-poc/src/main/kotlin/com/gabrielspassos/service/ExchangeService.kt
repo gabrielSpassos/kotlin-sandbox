@@ -38,13 +38,13 @@ class ExchangeService(
     }
 
     fun saveExchange(exchangeEvent: ExchangeEvent): ExchangeEntity {
-        val alreadyExistingExchangeEntity = exchangeEvent.userId
-                ?.let { userId -> exchangeRepository.findByUserId(userId) }
-                ?.getOrNull()
-
-        if (exchangeEvent.usdToBrlRate == null || exchangeEvent.rateDateTime.isNullOrBlank()) {
-            throw BadRequestException("Invalid exchange event rate values", "INVALID_EXCHANGE_EVENT")
+        if (exchangeEvent.userId == null
+            || exchangeEvent.usdToBrlRate == null
+            || exchangeEvent.rateDateTime.isNullOrBlank()) {
+            throw BadRequestException("Invalid exchange event values", "INVALID_EXCHANGE_EVENT")
         }
+
+        val alreadyExistingExchangeEntity = exchangeRepository.findByUserId(exchangeEvent.userId).getOrNull()
 
         val exchangeEntityToSave = if (alreadyExistingExchangeEntity != null) {
             alreadyExistingExchangeEntity.copy(

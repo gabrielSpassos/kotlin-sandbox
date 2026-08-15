@@ -30,6 +30,7 @@ class KafkaIntegrationTest {
     fun shouldSendUserEventToKafka() {
         val exchangeToProduce = ExchangeEvent(
             id = UUID.randomUUID().toString(),
+            userId = UUID.randomUUID(),
             usdToBrlRate = BigDecimal(1.5),
             rateDateTime = LocalDateTime.now().toString(),
         )
