@@ -53,7 +53,7 @@ class ExchangeService(
         } else {
             ExchangeEntity(
                 id = null,
-                userId = exchangeEvent.userId!!,
+                userId = exchangeEvent.userId,
                 usdToBrlExchangeRate = exchangeEvent.usdToBrlRate,
                 rateDateTime = LocalDateTime.parse(exchangeEvent.rateDateTime),
             )
